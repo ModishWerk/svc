@@ -1,57 +1,14 @@
 'use strict';
 
-/** inner color scheme defining the default color of the menue*/
-var _cs = {
-    defaultColor: "white",
-    highlightColor: "#FEFFD5",
-
-    /* Color Scheme*/
-    heading_color: "#E6E2AF",
-    base_color: "#FFB03B",
-    background_color: "#31152B",
-
-    text_color: "#F9E4AD",
-    accent_color: "#CC4452",
-    accent_hover_color: "#F9E4AD",
-}
-
-// cs = color scheme
-export var cs = {
-    color:_cs,
-    title: {
-        default: {
-            font: '60pt Modak',
-            fill: _cs.heading_color,
-            align: 'center'
-        }
-    },
-    navitem: {
-        base: {
-            font: '30pt Sniglet',
-            align: 'left',
-            srokeThickness: 4
-        },
-        default: {
-            fill: _cs.text_color,
-            stroke: 'rgba(0,0,0,0)'
-        },
-        inverse: {
-            fill: _cs.accent_color,
-            stroke: _cs.accent_color
-        },
-        hover: {
-            fill: _cs.accent_color,
-            stroke: 'rgba(200,200,200,0.5)'
-        }
-    }
-}
+import {cs, fa_cs} from './ColorScheme'
+import menuTools from './MenuComponent'
 
 export default class GameMenu extends Phaser.State {
     music: Phaser.Sound
     titleText: Phaser.Text
     fade: any
     init() {
-        this.titleText = this.game.make.text(this.game.world.centerX, 100, "Game Title", cs.title.default);
+        this.titleText = this.game.make.text(this.game.world.centerX, 100, "Lvl Up", cs.title.default);
         console.log( cs.title.default)
         this.titleText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
         this.titleText.anchor.set(0.5);
@@ -80,6 +37,29 @@ export default class GameMenu extends Phaser.State {
         this.game.stage.disableVisibilityChange = true;
         this.game.stage.backgroundColor = cs.color.background_color
         this.game.add.existing(this.titleText);
+        this._createMenuOptions()
+    }
+    _createMenuOptions(){
+        // menuTools.addMenuOption('Start \uf04b', () => {
+        // // game.state.start("Game");
+        // }, 'default' , "fa_style", this.menuGroup);
+        var menu = [
+            { 
+                text: ' \uf04b',
+                cb: (() => { this.game.state.start("Game")}),
+            },
+        ]
+        new menuTools.TextMenuMaker(this.game, menu ,{})
+        // menuTools.addMenuOption('\uf013 Options', () => {
+        // // game.state.start("Options");
+        // }, 'default' , "fa_style", this.menuGroup);
+
+        // menuTools.addMenuOption('Credits \uf25b', () => {
+        // // game.state.start("Credits");
+        // }, 'default' , "fa_style", this.menuGroup);
+
+        // this.adjustBottom(20, 0, this.menuGroup)
+        // console.log(this.menuGroup)
     }
 }
 
