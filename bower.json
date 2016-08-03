@@ -1,0 +1,22 @@
+{
+  "name": "lvlup",
+  "description": "Game",
+  "main": "index.js",
+  "authors": [
+    "Miezan Echimane"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "game",
+    "html5"
+  ],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

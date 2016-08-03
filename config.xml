@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.lvlupMst" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>lvlup</name>
+    <description>
+        Game
+    </description>
+    <author email="miezan@echimane.com" href="http://echimane.com">
+        Miezan Echimane
+    </author>
+    <content src="index.html" />
+    <plugin name="cordova-plugin-whitelist" spec="1" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <platform name="android">
+        <allow-intent href="market:*" />
+    </platform>
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+        <splash src="www/assets/images/logo.png" width="320" height="480"/>
+        <splash src="www/assets/images/logo.png" width="640" height="960"/>
+        <!-- <splash src="www/assets/images/logo.png" width="768" height="1024"/> -->
+        <!-- <splash src="www/assets/images/logo.png" width="1536" height="2048"/> -->
+    <!-- <splash src="www/img/logo.png" width="1024" height="768"/> -->
+    <!-- <splash src="www/img/logo.png" width="2048" height="1536"/> -->
+    <!-- <splash src="www/img/logo.png" width="640" height="1136"/> -->
+    <!-- <splash src="www/img/logo.png" width="750" height="1334"/> -->
+    <!-- <splash src="www/img/logo.png" width="1242" height="2208"/> -->
+    <!-- <splash src="www/img/logo.png" width="2208" height="1242"/> -->
+
+    </platform>
+    <icon src="www/assets/images/logo.png" platform="ios" width="57" height="57" density="mdpi" />
+    <preference name="DisallowOverscroll" value="true"/>
+    <preference name="Fullscreen" value="true" />
+    <preference name="BackgroundColor" value="0xff0000ff"/>
+    <preference name="HideKeyboardFormAccessoryBar" value="true"/>
+    <preference name="Orientation" value="landscape" />
+<!--          <preference name="SplashScreen" value="www/img/logo.png" /> -->
+<!--          <preference name="AutoHideSplashScreen" value="true" /> -->
+      <!-- <preference name="SplashScreenDelay" value="10000" /> -->
+
+</widget>
