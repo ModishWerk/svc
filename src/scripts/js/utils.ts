@@ -6,21 +6,29 @@ var utils = {
             object.anchor.setTo(0.5);
         });
     },
-
     interleaveArrays: function interleaveArrays(array1: [any], array2: [any]) {
-        var a1, a2;
-        if (array1.length > array2.length) {
-            a1 = array1
-            a2 = array2
-        } else {
-            a1 = array2
-            a2 = array1
-        }
-        return a1.reduce(function(arr, v, i) {
+        return array1.reduce(function(arr, v, i) {
             console.log(v, i)
-            return arr.concat(v, a2[i]);
+            return arr.concat(v, array2[i]);
         }, []).filter((x)=> x != undefined);
     },
+    isEmpty: (obj) => {
+      return Object.keys(obj).length === 0  
+    },
+    // interleaveArrays: function interleaveArrays(array1: [any], array2: [any]) {
+    //     var a1, a2;
+    //     if (array1.length > array2.length) {
+    //         a1 = array1
+    //         a2 = array2
+    //     } else {
+    //         a1 = array2
+    //         a2 = array1
+    //     }
+    //     return a1.reduce(function(arr, v, i) {
+    //         console.log(v, i)
+    //         return arr.concat(v, a2[i]);
+    //     }, []).filter((x)=> x != undefined);
+    // },
     /**
    * Fits an array of elements vertically in it's parents
    */

@@ -45,11 +45,19 @@ export default class GameMenu extends Phaser.State {
         // }, 'default' , "fa_style", this.menuGroup);
         var menu = [
             { 
-                text: ' \uf04b',
+                text: 'Start \uf04b',
+                cb: (() => { this.game.state.start("Game")}),
+            },
+            { 
+                text: '\uf013 Options',
+                cb: (() => { this.game.state.start("Game")}),
+            },
+            { 
+                text: 'Credits \uf25b',
                 cb: (() => { this.game.state.start("Game")}),
             },
         ]
-        new menuTools.TextMenuMaker(this.game, menu ,{})
+        new menuTools.TextMenuMaker(this.game, menu, {})
         // menuTools.addMenuOption('\uf013 Options', () => {
         // // game.state.start("Options");
         // }, 'default' , "fa_style", this.menuGroup);
