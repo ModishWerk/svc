@@ -10,7 +10,7 @@ function DataStore(gameDataStore) {
     }
 }
 
-DataStore.prototype.get = function (name) {
+DataStore.prototype.getItem = function (name) {
     if (this._store) {
         return this._store.getItem(name);
     } else {
@@ -42,4 +42,6 @@ DataStore.prototype.setupDefaultGameItems = function () {
 var storeInstance = new DataStore(true);
 
 exports.default = { DataStore: DataStore, storeInstance: storeInstance };
+//# sourceMappingURL=dataStore.js.map
+//# sourceMappingURL=dataStore.js.map
 //# sourceMappingURL=dataStore.js.map

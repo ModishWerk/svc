@@ -36,7 +36,7 @@
         <key>dpi</key>
         <uint>72</uint>
         <key>dataFormat</key>
-        <string>phaser-json-array</string>
+        <string>phaser-json-hash</string>
         <key>textureFileName</key>
         <filename></filename>
         <key>flipPVR</key>
@@ -166,7 +166,7 @@
         <key>trimSpriteNames</key>
         <false/>
         <key>prependSmartFolderName</key>
-        <false/>
+        <true/>
         <key>cleanTransparentPixels</key>
         <true/>
         <key>globalSpriteSettings</key>

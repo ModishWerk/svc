@@ -58,9 +58,8 @@ export default class Splash extends Phaser.State {
         this._addGameMusic();
         // this.initDeviceRatio();
 
-        setTimeout(function (game) {
+        window.setInterval(function (game) {
             
-            console.log("/********************New State**********************/")
             
             if (game.fontLoaded) {
                 game.camera.fade(0x0000000, 1000, true)
@@ -70,7 +69,19 @@ export default class Splash extends Phaser.State {
 
 
     }
-    update() { }
+    update() { 
+        // if all the fonts are loaded, go to next State
+        if (this.fontLoaded) {
+
+            console.log("/********************New State**********************/")
+            setTimeout(() => {
+                this.game.camera.fade(0x0000000, 1000, true)
+                this.game.state.start("Menu");
+            }, 1000);
+        
+        }
+
+    }
     render() {
         // console.log("Render Splash")
         // this.game.debug.rectangle(this.logo.getLocalBounds(), 'blue', false);
@@ -112,7 +123,8 @@ let loadFonts = (game: Splash) => {
         active: () => {
             console.log("Webfonts loaded")
 
-            setTimeout(function (game: Phaser.State) {
+            setTimeout(function (game: Splash) {
+                game.fontLoaded = true
                 // game.status.setStyle({ fill: 'white', font: '30pt Sniglet' });
                 // game.add.existing(game.status)
             } (game), 500);

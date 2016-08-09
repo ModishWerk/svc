@@ -1,8 +1,11 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 var style;
 var fa_style;
-var cs:any = {}; // for color scheme - humm could also good with css... but oh well
+var cs = {}; // for color scheme - humm could also good with css... but oh well
 
 // this is a wrapped function
 (function () {
@@ -126,6 +129,8 @@ var cs:any = {}; // for color scheme - humm could also good with css... but oh w
   }
 })();
 
-export default {cs, strict, fa_style}
+exports.default = { cs: cs, strict: strict, fa_style: fa_style };
+//# sourceMappingURL=style.js.map
+//# sourceMappingURL=style.js.map
 //# sourceMappingURL=style.js.map
 //# sourceMappingURL=style.js.map

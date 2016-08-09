@@ -1,8 +1,9 @@
 
 // imports here refers to the old JS files
-import * as dataStore from './dataStore'
+import { default as ds} from './dataStore'
 import levelManager from './level'
-
+import UI from './UIComponent'
+let dataStore = ds.storeInstance
 
 /**
  * GameState
@@ -12,6 +13,12 @@ export default class Game extends Phaser.State {
     timer: Phaser.Timer
     background: Phaser.TileSprite
     player: any
+
+    score: number
+    savingInterval
+    lastSave
+    savedText
+    UI
 
 
     cursors: Phaser.CursorKeys
@@ -31,29 +38,37 @@ export default class Game extends Phaser.State {
 
         this.game.time.advancedTiming = true;
 
+        this.score = parseInt(dataStore.getItem("_highScore")) || 0
+        // this.autoSave = true
+        this.savingInterval = 30000 // every 30 sec
+        this.lastSave = 0
+        this.savedText = null;
+
     }
     preload() {
 
     }
     create() {
-        this.background = this.add.tileSprite(0, 0, window.innerWidth, window.innerHeight,'atlas', 'bg2');
-        this.background.fixedToCamera = true;
-        this.cursors = this.input.keyboard.createCursorKeys();
+        
         this.physics.startSystem(Phaser.Physics.P2JS);
         this.game.stage.disableVisibilityChange = true;
         this.world.setBounds(0, 0, 1200, 1200);
-        this.pad = this.game.plugins.add(Phaser.VirtualJoystick);
-        console.log("dataStore = ", dataStore)
-        console.log("lvlManager = ", levelManager)
         
+        
+        this.background = this.add.tileSprite(0, 0, window.innerWidth, window.innerHeight, 'atlas', 'bg2');
+        this.background.fixedToCamera = true;
+        
+        this.cursors = this.input.keyboard.createCursorKeys();
+        this.pad = this.game.plugins.add(Phaser.VirtualJoystick);
+        
+        this.stick = this._setupDirectionPad()
 
-       this.stick = this._setupDirectionPad()
-
+        this.UI = new UI(this.game)
         // this._addSuperJoystick()
 
     }
     update() { }
-    render() { 
+    render() {
         this.game.debug.text("" + this.game.time.fps || '--', 32, 32, "#00ff00");
 
     }
@@ -72,22 +87,26 @@ export default class Game extends Phaser.State {
     }
 
 
-
+    _save() {
+         if (dataStore){
+            dataStore.save("_highScore", this.score || 0) //
+         }
+    }
 
     _addSuperJoystick() {
-    //   	var joystick	= new VirtualJoystick({
-	// 	container	: document.body,
-	// 	strokeStyle	: "rgba(255,0,0,0.5)",
-	// 	limitStickTravel: true,
-    //     stickRadius: 120,
-    //     mouseSupport: false,
-    //     useCssTransform:false
-	// });
-	// joystick.addEventListener('touchStartValidation', function(event){
-	// 	var touch	= event.changedTouches[0];
-	// 	if( touch.pageX < window.innerWidth/2 )	return false;
-	// 	return true
-	// });
+        //   	var joystick	= new VirtualJoystick({
+        // 	container	: document.body,
+        // 	strokeStyle	: "rgba(255,0,0,0.5)",
+        // 	limitStickTravel: true,
+        //     stickRadius: 120,
+        //     mouseSupport: false,
+        //     useCssTransform:false
+        // });
+        // joystick.addEventListener('touchStartValidation', function(event){
+        // 	var touch	= event.changedTouches[0];
+        // 	if( touch.pageX < window.innerWidth/2 )	return false;
+        // 	return true
+        // });
 
     }
 }

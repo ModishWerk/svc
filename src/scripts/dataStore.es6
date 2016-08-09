@@ -6,7 +6,7 @@ function DataStore(gameDataStore) {
 }
 
 
-DataStore.prototype.get = function(name) {
+DataStore.prototype.getItem = function(name) {
     if (this._store) {
         return this._store.getItem(name);
     }else {

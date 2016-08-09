@@ -14,8 +14,8 @@ var _cs = {
     text_color: "#F9E4AD",
     accent_color: "#CC4452",
     accent_hover_color: "#F9E4AD",
-    heading_fontFamily: "Modak",
-    body_fontFamily: "Modak",
+    heading_fontFamily: "sequence_brk",
+    body_fontFamily: "sequence_brk",
 }
 
 // cs = color scheme
