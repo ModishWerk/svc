@@ -1,6 +1,6 @@
 
 import Splash from './scripts/Splash'
-import GameState from './scripts/GameState'
+
 
 class lvlUp {
 	game: Phaser.Game;

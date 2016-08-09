@@ -44,10 +44,11 @@ gulp.task("typescript", function () {
         entries: ['src/main.ts'],
         cache: {},
         packageCache: {},
+        transform: "babelify"
     })
     .plugin(tsify)
     .on('error', onError)
-    .transform("babelify", {presets: ['es2015', 'react']})
+    .transform("babelify", {presets: ['es2015']})
     .bundle()
     .pipe(source('bundle.js')) // concat all source into one file
     .pipe(buffer())

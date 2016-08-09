@@ -1,6 +1,5 @@
 'use strict';
 
-// import cs from './colorScheme'
 import utils from './js/utils'
 import { cs, fa_cs } from './ColorScheme'
 

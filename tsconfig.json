@@ -1,12 +1,13 @@
 {
     "compilerOptions": {
-        "jsx": "react"
+        // "jsx": "preserve",
         // "noImplicitAny": true,
-        // "target": "es5",
-        // "module": "amd",
-        // "sourceMap": true,
+        "target": "es5",
+        "module": "commonjs",
+        "allowJs": true,
+        "sourceMap": true,
         // "outDir": "www",
-        // "removeComments": true
+        "removeComments": true
     },
      "exclude": [
         "node_modules",

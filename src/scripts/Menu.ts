@@ -2,8 +2,9 @@
 
 import {cs, fa_cs} from './ColorScheme'
 import menuTools from './MenuComponent'
+import Game from './Game'
 
-export default class GameMenu extends Phaser.State {
+export default class Menu extends Phaser.State {
     music: Phaser.Sound
     titleText: Phaser.Text
     fade: any
@@ -29,20 +30,14 @@ export default class GameMenu extends Phaser.State {
 
     }
     _setupGameMenu() {
-            //  Listen for this signal to reset once the fade is over
-  
-        // console.log(this.fade)
 
-        // this.game.camera.fx.alpha = 0
         this.game.stage.disableVisibilityChange = true;
         this.game.stage.backgroundColor = cs.color.background_color
         this.game.add.existing(this.titleText);
         this._createMenuOptions()
     }
     _createMenuOptions(){
-        // menuTools.addMenuOption('Start \uf04b', () => {
-        // // game.state.start("Game");
-        // }, 'default' , "fa_style", this.menuGroup);
+
         var menu = [
             { 
                 text: 'Start \uf04b',
@@ -50,7 +45,7 @@ export default class GameMenu extends Phaser.State {
             },
             { 
                 text: '\uf013 Options',
-                cb: (() => { this.game.state.start("Game")}),
+                cb: (() => { this.game.state.start("Option")}),
             },
             { 
                 text: 'Credits \uf25b',

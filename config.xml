@@ -42,6 +42,6 @@
     <preference name="Orientation" value="landscape" />
 <!--          <preference name="SplashScreen" value="www/img/logo.png" /> -->
 <!--          <preference name="AutoHideSplashScreen" value="true" /> -->
-      <!-- <preference name="SplashScreenDelay" value="10000" /> -->
+       <!--<preference name="SplashScreenDelay" value="500" /> -->
 
 </widget>

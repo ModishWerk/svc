@@ -28,7 +28,7 @@
             "request": "launch",
             "platform": "ios",
             "target": "iPhone-6s",
-            "port": 9223,
+            "port": 9222,
             "sourceMaps": true,
             "cwd": "${workspaceRoot}",
             "ionicLiveReload": false
