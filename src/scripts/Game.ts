@@ -54,6 +54,12 @@ export default class Game extends Phaser.State {
     }
     create() {
         
+        // _gg.Music = this.game.add.audio("gameMusic")
+        // _gg.Music.play()
+        // console.log(_gg.Music)
+
+        _gg.switchMusic("gameMusic")
+        
         this.physics.startSystem(Phaser.Physics.P2JS);
         this.game.stage.disableVisibilityChange = true;
         this.world.setBounds(0, 0, 1200, 1200);
@@ -68,12 +74,13 @@ export default class Game extends Phaser.State {
         this.stick = this._setupDirectionPad()
 
         this.UI = new UI(this.game)
-        console.log(_gg, _gg.autoSave, _gg.Music)
+        console.log(_gg.autoSave, _gg.Music)
         // this._addSuperJoystick()
 
     }
     update() { }
     render() {
+        this.game.debug.soundInfo(_gg.Music, 20, 32);
         this.game.debug.text("" + this.game.time.fps || '--', 32, 32, "#00ff00");
 
     }

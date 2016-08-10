@@ -9,7 +9,6 @@ import _gg from './GameGlobals'
 
 
 export default class Menu extends Phaser.State {
-    music: Phaser.Sound
     titleText: Phaser.Text
     fade: any
     init() {
@@ -22,15 +21,16 @@ export default class Menu extends Phaser.State {
         console.log("GameMenu Create")
         this._setupGameMenu()
         this.fade = this.game.camera.flash(0xfffffff, 1000, true)
-        console.log("Menu ==> ", _gg.Music)
-        // this.game.camera.onFlashComplete.addOnce(this._setupGameMenu, this)
+        this._playMusic()
+
     }
-    update() { 
+    update() {
     }
     render() {
         // console.log("Render Splash")
         // this.game.debug.rectangle(this.logo.getLocalBounds(), 'blue', false);
         this.game.debug.text("" + this.game.time.fps || '--', 32, 32, "#00ff00");
+        this.game.debug.soundInfo(_gg.Music, 20, 32);
 
     }
     _setupGameMenu() {
@@ -40,20 +40,23 @@ export default class Menu extends Phaser.State {
         this.game.add.existing(this.titleText);
         this._createMenuOptions()
     }
-    _createMenuOptions(){
+    _playMusic() {
+        _gg.switchMusic("menuMusic")
+    }
+    _createMenuOptions() {
 
         var menu = [
-            { 
+            {
                 text: 'Start \uf04b',
-                cb: (() => { this.game.state.start("Game")}),
+                cb: (() => { this.game.state.start("Game") }),
             },
-            { 
+            {
                 text: '\uf013 Options',
-                cb: (() => { this.game.state.start("Option")}),
+                cb: (() => { this.game.state.start("Option") }),
             },
-            { 
+            {
                 text: 'Credits \uf25b',
-                cb: (() => { this.game.state.start("Game")}),
+                cb: (() => { this.game.state.start("Game") }),
             },
         ]
         new menuTools.TextMenuMaker(this.game, menu, {})
