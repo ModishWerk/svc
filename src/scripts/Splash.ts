@@ -1,9 +1,13 @@
 'use strict';
 
 import utils from './js/utils'
-import * as mgg from '../main'
+
 import Menu from './Menu'
 import Game from './Game'
+
+import _gg from './GameGlobals'
+
+
 
 
 export default class Splash extends Phaser.State {
@@ -21,6 +25,7 @@ export default class Splash extends Phaser.State {
         console.log("Init Splash", this)
     }
     preload() {
+        console.log("Preload Splash")
         this.game.add.existing(this.loadingBar)
         this.game.add.existing(this.logo)
         this.game.add.existing(this.status)
@@ -34,7 +39,6 @@ export default class Splash extends Phaser.State {
 
             this.status.setText('Ready!');
         }, this)
-        console.log("Preload Splash")
 
         this.game.load.atlas('atlas', 'assets/images/atlas.png', 'assets/images/atlas.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
         this.load.atlas('generic', 'assets/images/generic-joystick.png', 'assets/images/generic-joystick.json');
@@ -52,6 +56,7 @@ export default class Splash extends Phaser.State {
     create() {
         this.game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
         this.game.renderer.renderSession.roundPixels = true;
+        console.log("Splash ==> ", _gg.autoSave, _gg.Music)
 
 
         this._addGameState();
@@ -97,7 +102,7 @@ export default class Splash extends Phaser.State {
         //     game.state.add("Options",Options);
     }
     _addGameMusic() {
-
+        _gg.Music = this.game.add.audio("menuMusic")
     }
     _onFileComplete(progress, cacheKey, success, totalLoaded, totalFiles) {
         console.log(progress);

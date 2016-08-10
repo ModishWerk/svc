@@ -1,29 +1,38 @@
 
 
+import {cs, fa_cs} from './ColorScheme'
+
 /**
  * UI
  */
 export default class UI extends Phaser.Group {
     scoreText: Phaser.Text
-    savedText: Phaser.Text
-    pause: pauseMechanism
+    savedText: DynamicFeedBack
+    pause: PauseMechanism
     blurLayer: Phaser.TileSprite
 
     constructor(game: Phaser.Game) {
         super(game)
-        this.pause = new pauseMechanism(game, this)
+        this.pause = new PauseMechanism(game, 250, this)
+        this.savedText = new DynamicFeedBack(game, innerWidth/2, innerHeight/2, "Auto\nSaved..",1000, null, this)
     }
+
     update() {
 
     }
 
 }
 
-class pauseMechanism {
+/**********************************************************
+ * Pause game component
+ **********************************************************/
+class PauseMechanism {
     blurLayer: Phaser.TileSprite
     pauseBtn: Phaser.Text
+    animationDuration: number
     optionStyle: any
-    constructor(game: Phaser.Game, grp:Phaser.Group) {
+    constructor(game: Phaser.Game, duration: number = 100, grp?: Phaser.Group) {
+        this.animationDuration = duration
         this.blurLayer = game.add.tileSprite(0, 0, game.world.width, game.world.height, 'atlas', 'blur-bg', grp);
         this.blurLayer.alpha = 0
         this.optionStyle = {
@@ -56,9 +65,8 @@ class pauseMechanism {
         return this
     }
     _pauseHandler(game, btn) {
-        var blurTwn = game.add.tween(this.blurLayer).to({ alpha: 1 }, 200, Phaser.Easing.Cubic.In, true, 200);
-        var twn = game.add.tween(btn).to({ fontSize: "300px", x: window.screen.width/2, y: window.screen.height/2, backgroundColor: 'rgba(200,200,200,0.5)' }, 500, Phaser.Easing.Cubic.In, true, 200);
-        console.log(window.screen.width/2, window.screen.height/2)
+        var blurTwn = game.add.tween(this.blurLayer).to({ alpha: 1 }, this.animationDuration, Phaser.Easing.Cubic.In, true, 200);
+        var twn = game.add.tween(btn).to({ fontSize: "300px", x: window.screen.width/2, y: window.screen.height/2, backgroundColor: 'rgba(200,200,200,0.5)' }, this.animationDuration, Phaser.Easing.Cubic.In, true, 200);
         twn.onComplete.add(() => { game.paused = true; }) // pause after tweening
                 
     }
@@ -73,16 +81,14 @@ class pauseMechanism {
 
                 event.game.paused = false;
                 // I'm not sure why but a negative found size does reduce the pause button back
-                event.game.add.tween(this.pauseBtn).to({ fontSize: "-300px", x: this.pauseBtn["resetX"], y: this.pauseBtn["resetY"] }, 500, Phaser.Easing.Cubic.In, true, 200);
+                event.game.add.tween(this.pauseBtn).to({ fontSize: "-300px", x: this.pauseBtn["resetX"], y: this.pauseBtn["resetY"] }, this.animationDuration, Phaser.Easing.Cubic.In, true, 200);
                 event.game.add.tween(this.blurLayer).to({ alpha: 0 }, 200, Phaser.Easing.Cubic.In, true, 200);
 
             }
-        } else {
-            console.log("Nothing to UnPause")
         }
+        
     }
 }
-
 
 function createFontAwesomeBtn(game:Phaser.Game, x, y, text, optionStyle, callback,grp) {
     optionStyle.default = optionStyle.default || {}
@@ -107,4 +113,36 @@ function createFontAwesomeBtn(game:Phaser.Game, x, y, text, optionStyle, callbac
 
     return txt
 
+}
+
+
+/**********************************************************
+ * feedback game component
+ **********************************************************/
+
+/**
+ * dynamic feedback create a quickly displayed text near the 
+ */
+class DynamicFeedBack {
+    txt: Phaser.Text
+    twn: Phaser.Tween
+    constructor(game: Phaser.Game, x, y, content: string =  "FeedBack Text\nmissing..", duration:number = 1000, style?:any, grp?) {
+        this.txt = game.add.text(x, y, content, style? style : cs.title.default, grp);
+        this.txt.anchor.set(0.5);
+        this.txt.alpha = 0
+        
+        var twn1 = game.add.tween(this.txt).to({ y: "-30", alpha: 1 }, duration, "Quart.easeOut"),
+            twn2 = game.add.tween(this.txt).to({ y: "30", alpha: 0 }, duration, "Quart.easeOut");
+        twn1.chain(twn2);
+        this.twn = twn1  
+
+        return this
+    }
+    setText(newText:string) {
+        this.txt.setText(newText, true)
+    }
+
+    display() {
+        this.twn.start()
+    }
 }

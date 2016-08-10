@@ -2,7 +2,11 @@
 // imports here refers to the old JS files
 import { default as ds} from './dataStore'
 import levelManager from './level'
+
 import UI from './UIComponent'
+import _gg from './GameGlobals'
+
+
 let dataStore = ds.storeInstance
 
 /**
@@ -55,7 +59,7 @@ export default class Game extends Phaser.State {
         this.world.setBounds(0, 0, 1200, 1200);
         
         
-        this.background = this.add.tileSprite(0, 0, window.innerWidth, window.innerHeight, 'atlas', 'bg2');
+        this.background = this.add.tileSprite(0, 0, window.innerWidth, window.innerHeight, 'atlas', 'bg1');
         this.background.fixedToCamera = true;
         
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -64,6 +68,7 @@ export default class Game extends Phaser.State {
         this.stick = this._setupDirectionPad()
 
         this.UI = new UI(this.game)
+        console.log(_gg, _gg.autoSave, _gg.Music)
         // this._addSuperJoystick()
 
     }

@@ -4,13 +4,16 @@ import {cs, fa_cs} from './ColorScheme'
 import menuTools from './MenuComponent'
 import Game from './Game'
 
+import _gg from './GameGlobals'
+
+
+
 export default class Menu extends Phaser.State {
     music: Phaser.Sound
     titleText: Phaser.Text
     fade: any
     init() {
         this.titleText = this.game.make.text(this.game.world.centerX, 100, "Lvl Up", cs.title.default);
-        console.log( cs.title.default)
         this.titleText.setShadow(3, 3, 'rgba(0,0,0,0.5)', 5);
         this.titleText.anchor.set(0.5);
     }
@@ -19,6 +22,7 @@ export default class Menu extends Phaser.State {
         console.log("GameMenu Create")
         this._setupGameMenu()
         this.fade = this.game.camera.flash(0xfffffff, 1000, true)
+        console.log("Menu ==> ", _gg.Music)
         // this.game.camera.onFlashComplete.addOnce(this._setupGameMenu, this)
     }
     update() { 

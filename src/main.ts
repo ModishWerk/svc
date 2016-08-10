@@ -40,12 +40,7 @@ class lvlUp {
 	}
 }
 
-export declare let WebFontConfig: any;
-export declare let Music: Phaser.AudioSprite;
-
 
 window.onload = () => {
 	var game = new lvlUp();
 }
-
-export default {WebFontConfig, Music}

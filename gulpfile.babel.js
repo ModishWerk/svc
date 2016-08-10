@@ -181,6 +181,7 @@ gulp.task('serve:dist', ['build'] ,() => {
     '.tmp/fonts/**/*'
   ]).on('change', reload);
 
+  gulp.watch(config.src + '/assets/**/*', ['extras']);
   gulp.watch(config.src + '/styles/**/*.scss', ['styles']);
   gulp.watch(config.src + '/scripts/**/*.ts', ['typescript']);
   gulp.watch(config.src + '/*.ts', ['typescript']);
