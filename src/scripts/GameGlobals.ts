@@ -24,11 +24,18 @@ export  default class Mgg {
         }
     }
     static switchFx(FxName:string) { 
-        if (Mgg.FXSound.name !== FxName && Mgg.playFXSound) {
-            Mgg.FXSound.stop();
-            Mgg.FXSound = Phaser.GAMES[0].add.audio(FxName)
-            Mgg.FXSound.fadeIn(1000);//.play()
-        } 
+        if (Mgg.playFXSound) {
+            if (Mgg.FXSound.name !== FxName) {
+                Mgg.FXSound.stop();
+                Mgg.FXSound = Phaser.GAMES[0].add.audio(FxName)
+                Mgg.FXSound.loop = true
+                Mgg.FXSound.fadeIn(1000);//.play()
+            } else if (!Mgg.FXSound.isPlaying) {
+                Mgg.FXSound.play()
+            } else {
+                // the correct fx is already playing
+            }
+        }
     }
 }
 

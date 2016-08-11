@@ -5,6 +5,7 @@ import menuTools from './MenuComponent'
 import Game from './Game'
 
 import _gg from './GameGlobals'
+import UI from './UIComponent'
 
 
 
@@ -21,6 +22,9 @@ export default class Menu extends Phaser.State {
         console.log("GameMenu Create")
         this._setupGameMenu()
         this.fade = this.game.camera.flash(0xfffffff, 1000, true)
+
+        this._setupMuteBtn()
+
         this._playMusic()
 
     }
@@ -32,6 +36,10 @@ export default class Menu extends Phaser.State {
         this.game.debug.text("" + this.game.time.fps || '--', 32, 32, "#00ff00");
         this.game.debug.soundInfo(_gg.Music, 20, 32);
 
+    }
+    _setupMuteBtn() { 
+                /* adding Mute icon*/
+        
     }
     _setupGameMenu() {
 

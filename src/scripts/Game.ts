@@ -53,10 +53,6 @@ export default class Game extends Phaser.State {
 
     }
     create() {
-        
-        // _gg.Music = this.game.add.audio("gameMusic")
-        // _gg.Music.play()
-        // console.log(_gg.Music)
 
         _gg.switchMusic("gameMusic")
         
@@ -73,8 +69,8 @@ export default class Game extends Phaser.State {
         
         this.stick = this._setupDirectionPad()
 
-        this.UI = new UI(this.game)
-        console.log(_gg.autoSave, _gg.Music)
+        this.UI = new UI(this.game, _gg)
+        
         // this._addSuperJoystick()
 
     }

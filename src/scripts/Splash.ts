@@ -46,11 +46,11 @@ export default class Splash extends Phaser.State {
         this.game.load.atlas('atlas', 'assets/images/atlas.png', 'assets/images/atlas.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
         this.load.atlas('generic', 'assets/images/generic-joystick.png', 'assets/images/generic-joystick.json');
         //TODO: look in audiosprite to reduce overhead https://github.com/tonistiigi/audiosprite
-        this.game.load.audio('menuMusic', ['assets/sounds/menu_screen_music_the_come_up_nocopyright.ogg'])
-        this.game.load.audio('gameMusic', ['assets/sounds/robo_sing_comicdead_edit_version_noncopyrigh.ogg'])
-        this.game.load.audio('fx_nuke', ['assets/sounds/nuke_snd_fx.ogg'])
-        this.game.load.audio('fx_player', ['assets/sounds/player_snd_fx.ogg'])
-        this.game.load.audio('fx_bullet', ['assets/sounds/norm_gun_snd_fx.ogg'])
+        this.game.load.audio('menuMusic', ['assets/sounds/Racing-Menu.mp3', 'assets/sounds/menu_screen_music_the_come_up_nocopyright.ogg'])
+        this.game.load.audio('gameMusic', ['assets/sounds/AL3X_Flight-160.mp3','assets/sounds/robo_sing_comicdead_edit_version_noncopyrigh.ogg'])
+        // this.game.load.audio('fx_nuke', ['assets/sounds/nuke_snd_fx.ogg'])
+        // this.game.load.audio('fx_player', ['assets/sounds/player_snd_fx.ogg'])
+        // this.game.load.audio('fx_bullet', ['assets/sounds/norm_gun_snd_fx.ogg'])
 
                this.game.load.image("testImg", "http://placekitten.com/2000/3000")
         this.game.load.image("testImg2", "http://placekitten.com/2000/3000")
