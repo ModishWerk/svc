@@ -2,6 +2,7 @@
 // imports here refers to the old JS files
 import { default as ds} from './dataStore'
 import levelManager from './level'
+import Player from './Player'
 
 import UI from './UIComponent'
 import _gg from './GameGlobals'
@@ -16,7 +17,7 @@ let dataStore = ds.storeInstance
 export default class Game extends Phaser.State {
     timer: Phaser.Timer
     background: Phaser.TileSprite
-    player: any
+    player: Player
 
     score: number
     savingInterval
@@ -27,7 +28,8 @@ export default class Game extends Phaser.State {
 
     cursors: Phaser.CursorKeys
     pad: any
-    stick: any
+    leftStick: any
+    rightStick: any
 
 
     init() {
@@ -62,23 +64,30 @@ export default class Game extends Phaser.State {
         
         
         this.background = this.add.tileSprite(0, 0, window.innerWidth, window.innerHeight, 'atlas', 'bg1');
-        this.background.fixedToCamera = true;
+
+        this.background.fixedToCamera = true
+		this.background.tilePosition.set(-this.game.camera.x * 0.25, -this.game.camera.y * 0.25)
         
         this.cursors = this.input.keyboard.createCursorKeys();
         this.pad = this.game.plugins.add(Phaser.VirtualJoystick);
         
-        this.stick = this._setupDirectionPad()
+        this.leftStick = this._setupDirectionPad()
+        this.rightStick = this._setupOrientationPad()
 
         this.UI = new UI(this.game, _gg)
-        
-        // this._addSuperJoystick()
+        this.player = new Player(this.game, innerWidth/2, innerHeight/2)
 
     }
-    update() { }
-    render() {
-        this.game.debug.soundInfo(_gg.Music, 20, 32);
-        this.game.debug.text("" + this.game.time.fps || '--', 32, 32, "#00ff00");
 
+    update() { 
+        this.background.tilePosition.set(-this.game.camera.x * 0.5, -this.game.camera.y * 0.5)
+        this.player.update()
+    }
+
+    render() {
+        // this.game.debug.soundInfo(_gg.Music, 20, 32);
+        this.game.debug.spriteInfo(this.player, 20, 32);
+        this.game.debug.text("" + this.game.time.fps || '--', 32, 32, "#00ff00");
     }
 
     _setupDirectionPad() {
@@ -89,11 +98,11 @@ export default class Game extends Phaser.State {
     }
 
     _setupOrientationPad() {
-        var FireStick = this.pad.addStick(500, 520, 100, 'generic');
-        FireStick.scale = 0.5;
-        FireStick.alignBottomRight(20)
+        var stick = this.pad.addStick(0, 0, 100, 'generic');
+        stick.scale = 0.5;
+        stick.alignBottomRight(20)
+        return stick
     }
-
 
     _save() {
          if (dataStore){

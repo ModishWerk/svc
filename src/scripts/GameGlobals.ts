@@ -15,12 +15,17 @@ export  default class Mgg {
                 Mgg.Music.stop();
                 Mgg.Music = Phaser.GAMES[0].add.audio(musicName)
                 Mgg.Music.loop = true
-                Mgg.Music.fadeIn(1000);//.play()
+                Mgg.Music.fadeIn(4000);//.play()
             } else if (!Mgg.Music.isPlaying) {
                 Mgg.Music.play()
             } else {
                 // the correct music is already playing
             }
+        } else { // if the player muted in one state and unmute in the other state we still want to play the correct new song
+            Mgg.Music.stop();
+            Mgg.Music = Phaser.GAMES[0].add.audio(musicName)
+            Mgg.Music.loop = true
+            Mgg.Music.stop()
         }
     }
     static switchFx(FxName:string) { 

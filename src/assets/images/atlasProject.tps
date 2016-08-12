@@ -76,7 +76,7 @@
         <key>jpgQuality</key>
         <uint>80</uint>
         <key>pngOptimizationLevel</key>
-        <uint>1</uint>
+        <uint>0</uint>
         <key>webpQualityLevel</key>
         <uint>101</uint>
         <key>textureSubPath</key>
@@ -162,11 +162,11 @@
             <string></string>
         </struct>
         <key>autoAliasEnabled</key>
-        <true/>
-        <key>trimSpriteNames</key>
         <false/>
-        <key>prependSmartFolderName</key>
+        <key>trimSpriteNames</key>
         <true/>
+        <key>prependSmartFolderName</key>
+        <false/>
         <key>cleanTransparentPixels</key>
         <true/>
         <key>globalSpriteSettings</key>
@@ -206,6 +206,7 @@
             <filename>../../../../svc/app/assets/images/pickupSpeed.png</filename>
             <filename>bg1.png</filename>
             <filename>bg2.png</filename>
+            <filename>blur-bg.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

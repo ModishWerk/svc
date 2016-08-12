@@ -56,6 +56,7 @@ export class TextMenuMaker extends Phaser.Group {
                 }
             }
         })
+        return this
     }
     _createButton(txt, callback, className, _style)  {
         // txt.anchor.setTo(this.config.startX == this.game.world.centerX ? 0.5 : 0.0);

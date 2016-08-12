@@ -58,10 +58,10 @@ class PauseMechanism {
                 stroke: "rgba(0,0,0,0)"
             }
         }
-        this.pauseBtn = createFontAwesomeBtn(game, window.screen.width, 0, '\uf28c', this.optionStyle,  (btn)=>{this._pauseHandler(game, btn)}, game ,grp )
+        this.pauseBtn = createFontAwesomeBtn(game, innerWidth, 0, '\uf28c', this.optionStyle,  (btn)=>{this._pauseHandler(game, btn)}, game ,grp )
 
         game.input.onDown.add(this._unPauseHandler, this); // Add a input listener to unpause the game
-
+        
         this.pauseBtn["resetX"] = this.pauseBtn.x
         this.pauseBtn["resetY"] = this.pauseBtn.y
 
@@ -114,6 +114,8 @@ export function createFontAwesomeBtn(game:Phaser.Game, x, y, text, optionStyle, 
     txt.x = txt.x - txt.width / 2
     txt.y = txt.y + txt.height / 2
 
+    txt.fixedToCamera = true;
+    
     return txt
 
 }
@@ -155,11 +157,11 @@ class DynamicFeedBack {
 /**********************************************************
  * mute btn game component
  **********************************************************/
-class MuteMechanism {
+export class MuteMechanism {
     optionStyle: any
     muteBtn: Phaser.Text
     gameGlobals:any
-    constructor(game: Phaser.Game, gameGlobals, grp) {
+    constructor(game: Phaser.Game, gameGlobals, grp, x?, y?) {
           this.optionStyle = {
             default: {
                 font: '40px FontAwesome',
@@ -182,7 +184,7 @@ class MuteMechanism {
         }
         this.gameGlobals  = gameGlobals
         // this.muteBtn = game.add.text(0, 0, gameGlobals.playMusic ? '\uf028':'\uf026', { fill : cs.color.accent_color, font : '40px FontAwesome'});
-        this.muteBtn = createFontAwesomeBtn(game, innerWidth - 50, 0, gameGlobals.playMusic ? '\uf028' : '\uf026', this.optionStyle, this._handleMuteBtn, this,grp)
+        this.muteBtn = createFontAwesomeBtn(game, x || (innerWidth - 50), y || 0, gameGlobals.playMusic ? '\uf028' : '\uf026', this.optionStyle, this._handleMuteBtn, this,grp)
 
         return this
     }
@@ -191,5 +193,8 @@ class MuteMechanism {
         this.gameGlobals.playMusic = !this.gameGlobals.playMusic
         this.gameGlobals.Music.volume = this.gameGlobals.playMusic ? 1 : 0;
         this.gameGlobals.Music.volume ? this.muteBtn.setText('\uf028') : this.muteBtn.setText('\uf026')
+        if (this.gameGlobals.playMusic && !this.gameGlobals.Music.isPlaying) {
+            this.gameGlobals.switchMusic(this.gameGlobals.Music.name)
+        }
     }
 }

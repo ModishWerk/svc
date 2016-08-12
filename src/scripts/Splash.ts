@@ -48,13 +48,13 @@ export default class Splash extends Phaser.State {
         //TODO: look in audiosprite to reduce overhead https://github.com/tonistiigi/audiosprite
         this.game.load.audio('menuMusic', ['assets/sounds/Racing-Menu.mp3', 'assets/sounds/menu_screen_music_the_come_up_nocopyright.ogg'])
         this.game.load.audio('gameMusic', ['assets/sounds/AL3X_Flight-160.mp3','assets/sounds/robo_sing_comicdead_edit_version_noncopyrigh.ogg'])
-        // this.game.load.audio('fx_nuke', ['assets/sounds/nuke_snd_fx.ogg'])
-        // this.game.load.audio('fx_player', ['assets/sounds/player_snd_fx.ogg'])
-        // this.game.load.audio('fx_bullet', ['assets/sounds/norm_gun_snd_fx.ogg'])
+        this.game.load.audio('fx_nuke', ['assets/sounds/nuke_snd_fx.ogg'])
+        this.game.load.audio('fx_player', ['assets/sounds/player_snd_fx.ogg'])
+        this.game.load.audio('fx_bullet', ['assets/sounds/norm_gun_snd_fx.ogg'])
 
-               this.game.load.image("testImg", "http://placekitten.com/2000/3000")
-        this.game.load.image("testImg2", "http://placekitten.com/2000/3000")
-        this.game.load.image("testImg3", "http://placekitten.com/2000/3000")
+        // this.game.load.image("testImg", "http://placekitten.com/2000/3000")
+        // this.game.load.image("testImg2", "http://placekitten.com/2000/3000")
+        // this.game.load.image("testImg3", "http://placekitten.com/2000/3000")
     }
     create() {
         this.game.scale.scaleMode = Phaser.ScaleManager.RESIZE;

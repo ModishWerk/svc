@@ -5,12 +5,14 @@ import menuTools from './MenuComponent'
 import Game from './Game'
 
 import _gg from './GameGlobals'
-import UI from './UIComponent'
+import { MuteMechanism }from './UIComponent'
 
 
 
 export default class Menu extends Phaser.State {
     titleText: Phaser.Text
+    muteBtn: MuteMechanism
+    menuGrp: Phaser.Group
     fade: any
     init() {
         this.titleText = this.game.make.text(this.game.world.centerX, 100, "Lvl Up", cs.title.default);
@@ -22,9 +24,6 @@ export default class Menu extends Phaser.State {
         console.log("GameMenu Create")
         this._setupGameMenu()
         this.fade = this.game.camera.flash(0xfffffff, 1000, true)
-
-        this._setupMuteBtn()
-
         this._playMusic()
 
     }
@@ -38,8 +37,7 @@ export default class Menu extends Phaser.State {
 
     }
     _setupMuteBtn() { 
-                /* adding Mute icon*/
-        
+        this.muteBtn = new MuteMechanism(this.game, _gg, this.menuGrp, innerWidth, 0)
     }
     _setupGameMenu() {
 
@@ -47,6 +45,7 @@ export default class Menu extends Phaser.State {
         this.game.stage.backgroundColor = cs.color.background_color
         this.game.add.existing(this.titleText);
         this._createMenuOptions()
+        this._setupMuteBtn()
     }
     _playMusic() {
         _gg.switchMusic("menuMusic")
@@ -67,7 +66,7 @@ export default class Menu extends Phaser.State {
                 cb: (() => { this.game.state.start("Game") }),
             },
         ]
-        new menuTools.TextMenuMaker(this.game, menu, {})
+        this.menuGrp = new menuTools.TextMenuMaker(this.game, menu, {})
         // menuTools.addMenuOption('\uf013 Options', () => {
         // // game.state.start("Options");
         // }, 'default' , "fa_style", this.menuGroup);
