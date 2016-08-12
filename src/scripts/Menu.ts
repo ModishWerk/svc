@@ -27,8 +27,7 @@ export default class Menu extends Phaser.State {
         this._playMusic()
 
     }
-    update() {
-    }
+    update() {}
     render() {
         // console.log("Render Splash")
         // this.game.debug.rectangle(this.logo.getLocalBounds(), 'blue', false);
@@ -67,16 +66,6 @@ export default class Menu extends Phaser.State {
             },
         ]
         this.menuGrp = new menuTools.TextMenuMaker(this.game, menu, {})
-        // menuTools.addMenuOption('\uf013 Options', () => {
-        // // game.state.start("Options");
-        // }, 'default' , "fa_style", this.menuGroup);
-
-        // menuTools.addMenuOption('Credits \uf25b', () => {
-        // // game.state.start("Credits");
-        // }, 'default' , "fa_style", this.menuGroup);
-
-        // this.adjustBottom(20, 0, this.menuGroup)
-        // console.log(this.menuGroup)
     }
 }
 

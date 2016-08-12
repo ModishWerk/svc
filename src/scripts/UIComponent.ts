@@ -36,7 +36,9 @@ class PauseMechanism {
     constructor(game: Phaser.Game, duration: number = 100, grp?: Phaser.Group) {
         this.animationDuration = duration
         this.blurLayer = game.add.tileSprite(0, 0, window.screen.width, window.screen.height, 'atlas', 'blur-bg', grp);
+        this.blurLayer.fixedToCamera = true
         this.blurLayer.alpha = 0
+        
         this.optionStyle = {
             default: {
                 font: '40px FontAwesome',
@@ -58,12 +60,11 @@ class PauseMechanism {
                 stroke: "rgba(0,0,0,0)"
             }
         }
-        this.pauseBtn = createFontAwesomeBtn(game, innerWidth, 0, '\uf28c', this.optionStyle,  (btn)=>{this._pauseHandler(game, btn)}, game ,grp )
 
-        game.input.onDown.add(this._unPauseHandler, this); // Add a input listener to unpause the game
-        
+        this.pauseBtn = createFontAwesomeBtn(game, innerWidth, 0, '\uf28c', this.optionStyle,  (btn)=>{this._pauseHandler(game, btn)}, game ,grp )
         this.pauseBtn["resetX"] = this.pauseBtn.x
         this.pauseBtn["resetY"] = this.pauseBtn.y
+        game.input.onDown.add(this._unPauseHandler, this); // Add a input listener to unpause the game
 
         return this
     }
@@ -183,7 +184,6 @@ export class MuteMechanism {
             }
         }
         this.gameGlobals  = gameGlobals
-        // this.muteBtn = game.add.text(0, 0, gameGlobals.playMusic ? '\uf028':'\uf026', { fill : cs.color.accent_color, font : '40px FontAwesome'});
         this.muteBtn = createFontAwesomeBtn(game, x || (innerWidth - 50), y || 0, gameGlobals.playMusic ? '\uf028' : '\uf026', this.optionStyle, this._handleMuteBtn, this,grp)
 
         return this

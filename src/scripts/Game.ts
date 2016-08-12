@@ -60,11 +60,10 @@ export default class Game extends Phaser.State {
         
         this.physics.startSystem(Phaser.Physics.P2JS);
         this.game.stage.disableVisibilityChange = true;
-        this.world.setBounds(0, 0, 1200, 1200);
+        this.world.setBounds(0, 0, 2200, 2200);
         
         
         this.background = this.add.tileSprite(0, 0, window.innerWidth, window.innerHeight, 'atlas', 'bg1');
-
         this.background.fixedToCamera = true
 		this.background.tilePosition.set(-this.game.camera.x * 0.25, -this.game.camera.y * 0.25)
         

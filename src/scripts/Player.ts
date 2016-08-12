@@ -23,9 +23,8 @@ export default class Player extends Phaser.Sprite {
         this.updateMobileInputHandler() 
     }
 
-    handleJoysticInput() {
-        this.body.moveForward(this.maxVelocity); /* *2 to give a consitent acceleration as keyboard input*/
-        this.body.rotation = this._currentState['rightStick'].rotation + 1.555
+    useItem() {
+        
     }
 
     updateMobileInputHandler() {
