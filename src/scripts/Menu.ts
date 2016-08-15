@@ -3,6 +3,7 @@
 import {cs, fa_cs} from './ColorScheme'
 import menuTools from './MenuComponent'
 import Game from './Game'
+import utils from './js/utils'
 
 import _gg from './GameGlobals'
 import { MuteMechanism }from './UIComponent'
@@ -58,14 +59,15 @@ export default class Menu extends Phaser.State {
             },
             {
                 text: '\uf013 Options',
-                cb: (() => { this.game.state.start("Option") }),
+                cb: (() => { this.game.state.start("Options") }),
             },
             {
                 text: 'Credits \uf25b',
-                cb: (() => { this.game.state.start("Game") }),
+                cb: (() => { this.game.state.start("Credit") }),
             },
         ]
-        this.menuGrp = new menuTools.TextMenuMaker(this.game, menu, {})
+        this.menuGrp = new menuTools.TextMenuMaker(this.game, menu, {verticalSpacing:60})
+        utils.adjustFromBottom(this.menuGrp, 20)
     }
 }
 

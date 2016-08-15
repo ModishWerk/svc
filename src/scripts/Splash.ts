@@ -3,8 +3,8 @@
 import utils from './js/utils'
 
 import Menu from './Menu'
-import Options from './Options'
 import Game from './Game'
+import Options from './Options'
 
 import _gg from './GameGlobals'
 
@@ -92,7 +92,7 @@ export default class Splash extends Phaser.State {
         this.game.state.add("Game", Game);
         //     game.state.add("GameOver",GameOver);
         //     game.state.add("Credits",Credits);
-        this.game.state.add("Options",Options);
+        this.game.state.add("Options", Options);
     }
     _addGameMusic() {
         _gg.Music = this.game.add.audio("menuMusic")

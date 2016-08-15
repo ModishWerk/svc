@@ -23,7 +23,7 @@ export default class Game extends Phaser.State {
     savingInterval
     lastSave
     savedText
-    UI
+    UI:UI
 
 
     cursors: Phaser.CursorKeys
@@ -73,20 +73,26 @@ export default class Game extends Phaser.State {
         this.leftStick = this._setupDirectionPad()
         this.rightStick = this._setupOrientationPad()
 
-        this.UI = new UI(this.game, _gg)
         this.player = new Player(this.game, innerWidth/2, innerHeight/2)
+        this.UI = new UI(this.game, _gg)
+        this.UI.timer.start()
 
     }
 
     update() { 
         this.background.tilePosition.set(-this.game.camera.x * 0.5, -this.game.camera.y * 0.5)
         this.player.update()
+        this.UI.timer.update()
     }
 
     render() {
         // this.game.debug.soundInfo(_gg.Music, 20, 32);
-        this.game.debug.spriteInfo(this.player, 20, 32);
+        // this.game.debug.spriteInfo(this.player, 20, 32);
         this.game.debug.text("" + this.game.time.fps || '--', 32, 32, "#00ff00");
+
+        this.game.debug.text("" + this.game.time.totalElapsedSeconds().toFixed(0) || '--', 32,232, "#00ff00");
+        // this.game.debug.text("" + this.UI.timer.internalTimer.seconds.toFixed(0) || '--', 32,332, "#00ff00");
+        
     }
 
     _setupDirectionPad() {

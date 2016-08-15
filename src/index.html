@@ -23,7 +23,6 @@
      <!--build:css styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
-
     <!-- build:js scripts/vendor/vendor.js -->
     <script src="/lib/phaser.js"></script>
     <script src="/lib/polyfill.js"></script>
@@ -36,8 +35,50 @@
     <script src="/lib/virtualjoystick.js/virtualjoystick.js"></script>
 </head>
 <body>
+    <!--<script src="http://code.jquery.com/jquery-1.7.2.min.js" type="text/javascript"></script>-->
+   
+<!--<script src="https://raw.githubusercontent.com/shengtao/mobile-console.log/master/console.js" type="text/javascript"></script>-->
     <!--<div id="greeting">Loading ...</div>-->
     <div id="game"></div>
     <script src="bundle.js"></script>
+    <script>
+
+// Make a custom log for mobile devices
+if (isMobile()) {
+    console.log = function(message) {
+        var log = document.querySelector("#console-log");
+        if (!log) {
+            log = document.createElement('ul');
+            log.id = 'console-log';
+
+            var styleText = 'height:50%; overflow:hidden; overflow-y:scroll; position:fixed; top:0; left:0; width:100%; list-style-type:none; margin:0; padding:0; padding: 5px; font-size:9px; background:rgba(0,0,0,.7); color:white; font-family: monospace; z-index: 10000; text-align: left;';
+            log.style.cssText = styleText;
+
+            document.body.insertBefore(log, document.body.childNodes[0]);
+        }
+
+        // message = typeof message == 'object' ? message.toString() : message;
+
+        message = (new Date()).toTimeString().split(' ')[0] + ' <b style="color: red;">msg</b>: ' + message.toString();
+
+        log.innerHTML += '<li style="word-break: break-all;">' + message + '</li>';
+        log.scrollTop = log.scrollHeight;
+    }
+}
+
+function isMobile() {
+    var useragent = navigator.userAgent;
+    return useragent.indexOf('Android') != -1
+            || useragent.indexOf('iPhone') != -1
+            || useragent.indexOf('iPod') != -1
+            || useragent.indexOf('iPad') != -1;
+}
+
+        window.addEventListener("error", function (e) {
+        console.log("Error: " + e.error.message);
+        return false;
+        })
+
+    </script>
 </body>
 </html>
