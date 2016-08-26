@@ -76,7 +76,7 @@ class PauseMechanism {
         var blurTwn = game.add.tween(this.blurLayer).to({ alpha: 1 }, this.animationDuration, Phaser.Easing.Cubic.In, true, 200);
         var twn = game.add.tween(btn).to({ fontSize: "300px", x: window.screen.width/2, y: window.screen.height/2, backgroundColor: cs.color.accent_color }, this.animationDuration, Phaser.Easing.Cubic.In, true, 200);
         twn.onComplete.add(() => { game.paused = true; }) // pause after tweening
-                
+
     }
     _unPauseHandler(event) {
         // Unpause the game

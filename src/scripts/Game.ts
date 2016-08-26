@@ -30,6 +30,7 @@ export default class Game extends Phaser.State {
     pad: any
     leftStick: any
     rightStick: any
+    fireButton:any
 
 
     init() {
@@ -47,6 +48,7 @@ export default class Game extends Phaser.State {
         this.score = parseInt(dataStore.getItem("_highScore")) || 0
         // this.autoSave = true
         this.savingInterval = 30000 // every 30 sec
+        this.game.input.maxPointers = 2
         this.lastSave = 0
         this.savedText = null;
 
@@ -65,10 +67,10 @@ export default class Game extends Phaser.State {
         
         this.background = this.add.tileSprite(0, 0, window.innerWidth, window.innerHeight, 'atlas', 'bg1');
         this.background.fixedToCamera = true
-		this.background.tilePosition.set(-this.game.camera.x * 0.25, -this.game.camera.y * 0.25)
         
-        this.cursors = this.input.keyboard.createCursorKeys();
-        this.pad = this.game.plugins.add(Phaser.VirtualJoystick);
+        this.cursors = this.input.keyboard.createCursorKeys()
+        this.pad = this.game.plugins.add(Phaser.VirtualJoystick)
+        this.fireButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR)
         
         this.leftStick = this._setupDirectionPad()
         this.rightStick = this._setupOrientationPad()
@@ -80,7 +82,7 @@ export default class Game extends Phaser.State {
     }
 
     update() { 
-        this.background.tilePosition.set(-this.game.camera.x * 0.5, -this.game.camera.y * 0.5)
+		this.background.tilePosition.set(-this.game.camera.x * 0.95, -this.game.camera.y * 0.95)
         this.player.update()
         this.UI.timer.update()
     }
@@ -97,15 +99,15 @@ export default class Game extends Phaser.State {
 
     _setupDirectionPad() {
         var stick = this.pad.addStick(0, 0, 100, 'generic');
-        stick.scale = 0.5;
-        stick.alignBottomLeft(20);
+        stick.scale = 0.60;
+        stick.alignBottomLeft(45);
         return stick
     }
 
     _setupOrientationPad() {
         var stick = this.pad.addStick(0, 0, 100, 'generic');
-        stick.scale = 0.5;
-        stick.alignBottomRight(20)
+        stick.scale = 0.60;
+        stick.alignBottomRight(45)
         return stick
     }
 
