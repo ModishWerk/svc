@@ -3,6 +3,7 @@
 import { default as ds} from './dataStore'
 import levelManager from './level'
 import Player from './Player'
+import EnemyWave from "./enemies"
 
 import UI from './UIComponent'
 import _gg from './GameGlobals'
@@ -18,6 +19,7 @@ export default class Game extends Phaser.State {
     timer: Phaser.Timer
     background: Phaser.TileSprite
     player: Player
+    Enemies: any
 
     score: number
     savingInterval
@@ -60,7 +62,7 @@ export default class Game extends Phaser.State {
 
         _gg.switchMusic("gameMusic")
         
-        this.physics.startSystem(Phaser.Physics.P2JS);
+        this.physics.startSystem(Phaser.Physics.ARCADE);
         this.game.stage.disableVisibilityChange = true;
         this.world.setBounds(0, 0, 2200, 2200);
         
@@ -76,8 +78,11 @@ export default class Game extends Phaser.State {
         this.rightStick = this._setupOrientationPad()
 
         this.player = new Player(this.game, innerWidth/2, innerHeight/2)
+        this.Enemies = new EnemyWave(this.game, this ,100, this.player);
+        
         this.UI = new UI(this.game, _gg)
         this.UI.timer.start()
+
 
     }
 

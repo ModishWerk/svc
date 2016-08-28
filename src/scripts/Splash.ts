@@ -45,6 +45,7 @@ export default class Splash extends Phaser.State {
         }, this)
 
         this.game.load.atlas('atlas', 'assets/images/atlas.png', 'assets/images/atlas.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
+        this.game.load.atlas('enemy', 'assets/images/Enemy1.png', 'assets/images/Enemy1.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
         this.load.atlas('generic', 'assets/images/generic-joystick.png', 'assets/images/generic-joystick.json');
         //TODO: look in audiosprite to reduce overhead https://github.com/tonistiigi/audiosprite
         this.game.load.audio('menuMusic', ['assets/sounds/Racing-Menu.mp3', 'assets/sounds/menu_screen_music_the_come_up_nocopyright.ogg'])

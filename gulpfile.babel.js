@@ -92,7 +92,7 @@ gulp.task('lint:test', lint('test/spec/**/*.js', testLintOptions));
 gulp.task('html', ['styles' ,'typescript'], () => {
   return gulp.src(config.src + '/*.html')
     .pipe($.useref({searchPath: ['.tmp', config.src, '.']}))
-    .pipe($.if('*.js', $.uglify()))
+    // .pipe($.if('*.js', $.uglify()))
     .pipe($.if('*.css', $.cssnano()))
     .pipe($.if('*.html', $.htmlmin({collapseWhitespace: true})))
     .pipe(gulp.dest(config.dist));
