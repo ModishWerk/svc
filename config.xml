@@ -40,8 +40,8 @@
     <preference name="BackgroundColor" value="0xff0000ff"/>
     <preference name="HideKeyboardFormAccessoryBar" value="true"/>
     <preference name="Orientation" value="landscape" />
-<!--          <preference name="SplashScreen" value="www/img/logo.png" /> -->
-<!--          <preference name="AutoHideSplashScreen" value="true" /> -->
-       <!--<preference name="SplashScreenDelay" value="500" /> -->
+          <preference name="SplashScreen" value="www/img/logo.png" /> 
+          <preference name="AutoHideSplashScreen" value="true" /> 
+       <preference name="SplashScreenDelay" value="500" /> 
 
 </widget>

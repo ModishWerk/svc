@@ -43,6 +43,6 @@ function LevelManager () {
   return this
 }
 
-var levelManager = new LevelManager()
+var levelManager = LevelManager()
 
 export default levelManager

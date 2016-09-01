@@ -1,13 +1,14 @@
 
 // imports here refers to the old JS files
 import { default as ds} from './dataStore'
-import levelManager from './level'
+import levelManager  from './level'
 import Player from './Player'
 import EnemyWave from "./enemies"
 
 import UI from './UIComponent'
 import _gg from './GameGlobals'
 
+import collision from './Collisions'
 
 let dataStore = ds.storeInstance
 
@@ -32,7 +33,8 @@ export default class Game extends Phaser.State {
     pad: any
     leftStick: any
     rightStick: any
-    fireButton:any
+    fireButton: any
+    levelManager: any
 
 
     init() {
@@ -54,6 +56,8 @@ export default class Game extends Phaser.State {
         this.lastSave = 0
         this.savedText = null;
 
+        this.levelManager = levelManager
+
     }
     preload() {
 
@@ -64,7 +68,7 @@ export default class Game extends Phaser.State {
         
         this.physics.startSystem(Phaser.Physics.ARCADE);
         this.game.stage.disableVisibilityChange = true;
-        this.world.setBounds(0, 0, 2200, 2200);
+        this.world.setBounds(0, 0, 800, 800);
         
         
         this.background = this.add.tileSprite(0, 0, window.innerWidth, window.innerHeight, 'atlas', 'bg1');
@@ -76,8 +80,9 @@ export default class Game extends Phaser.State {
         
         this.leftStick = this._setupDirectionPad()
         this.rightStick = this._setupOrientationPad()
+        // this._addSuperJoystick() 
 
-        this.player = new Player(this.game, innerWidth/2, innerHeight/2)
+        this.player = new Player(this.game, innerWidth/2, innerHeight/2,4)
         this.Enemies = new EnemyWave(this.game, this ,100, this.player);
         
         this.UI = new UI(this.game, _gg)
@@ -90,6 +95,7 @@ export default class Game extends Phaser.State {
 		this.background.tilePosition.set(-this.game.camera.x * 0.95, -this.game.camera.y * 0.95)
         this.player.update()
         this.UI.timer.update()
+        this._checkAllCollision()
     }
 
     render() {
@@ -97,7 +103,7 @@ export default class Game extends Phaser.State {
         // this.game.debug.spriteInfo(this.player, 20, 32);
         this.game.debug.text("" + this.game.time.fps || '--', 32, 32, "#00ff00");
 
-        this.game.debug.text("" + this.game.time.totalElapsedSeconds().toFixed(0) || '--', 32,232, "#00ff00");
+        // this.game.debug.text("" + this.game.time.totalElapsedSeconds().toFixed(0) || '--', 32,232, "#00ff00");
         // this.game.debug.text("" + this.UI.timer.internalTimer.seconds.toFixed(0) || '--', 32,332, "#00ff00");
         
     }
@@ -123,19 +129,49 @@ export default class Game extends Phaser.State {
     }
 
     _addSuperJoystick() {
-        //   	var joystick	= new VirtualJoystick({
-        // 	container	: document.body,
-        // 	strokeStyle	: "rgba(255,0,0,0.5)",
-        // 	limitStickTravel: true,
-        //     stickRadius: 120,
-        //     mouseSupport: false,
-        //     useCssTransform:false
-        // });
-        // joystick.addEventListener('touchStartValidation', function(event){
-        // 	var touch	= event.changedTouches[0];
-        // 	if( touch.pageX < window.innerWidth/2 )	return false;
-        // 	return true
-        // });
+        var joystick	= new VirtualJoystick({
+        	container	: document.getElementById('game'),
+        	strokeStyle	: "rgba(255,0,0,0.5)",
+        	limitStickTravel: true,
+            stickRadius: 120,
+            mouseSupport: false,
+            useCssTransform:false
+        });
+        joystick.addEventListener('touchStartValidation', function(event){
+        	var touch	= event.changedTouches[0];
+        	if( touch.pageX < window.innerWidth/2 )	return false;
+        	return true
+        });
 
     }
+    _checkAllCollision() {
+        this.game.physics.arcade.collide(this.player, this.Enemies, collision.collisionHandlerHeroEnemy);
+        this.game.physics.arcade.collide(this.Enemies, this.Enemies);
+        // this.game.physics.arcade.collide(this.player, this.powerUpGroup, this.player.pickUpHandler);
+    }
+}
+
+
+/* The current game state - not the Phaser game object*/
+export function stopGame(gameState:Game) {
+  console.log(" >>> stopGame <<<")
+  console.log("Game Over")
+//   game.startButton.visible = true
+
+//   game.Hero.visible = false
+
+//   game.stick.visible = false
+//   game.FireStick.visible = false
+//   game.nukeButton.visible = false
+//   game.gameOver = true
+//   game.EnemyGroup.destroy()
+
+//   game.gameOverText.text = `GAME OVER\n\t\t\t  Score: ${game.Hero._score},  Health: ${game.Hero.health},  Lives: ${game.Hero.lives}`;
+//   game.gameOverText.visible = true
+//   game.Hero.health = game.Hero.MAX_HEALTH
+//   game.Hero.health = game.Hero.MAX_HEALTH
+//   game.Hero.lives = game._level.lives
+//   game.timer.stop();
+//   game.storeInstance.save("_currentLevel", game._level.id)
+
 }

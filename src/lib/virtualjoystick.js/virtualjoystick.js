@@ -410,7 +410,7 @@ VirtualJoystick.prototype._check3D = function()
 	// from: https://gist.github.com/lorenzopolidori/3794226
 	var el = document.createElement('div');
 	el.style[prop] = 'translate3d(1px,1px,1px)';
-	console.log("Prop", prop,document ,document.body)
+	// console.log("Prop", prop,document ,document.body)
 	document.body.insertBefore(el, null);
 	var val = getComputedStyle(el).getPropertyValue(map[prop]);
 	document.body.removeChild(el);

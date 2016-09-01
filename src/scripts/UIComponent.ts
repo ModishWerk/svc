@@ -12,7 +12,7 @@ export default class UI extends Phaser.Group {
     blurLayer: Phaser.TileSprite
     muteBtn: MuteMechanism
     timer: TimerMechanism
-    HealthBar: HealthBarMechanism
+    // HealthBar: HealthBarMechanism
 
     constructor(game: Phaser.Game, gameGlobals) {
         super(game)
@@ -20,7 +20,7 @@ export default class UI extends Phaser.Group {
         this.savedText = new DynamicFeedBack(game, innerWidth/2, innerHeight/2, "Auto\nSaved..",1000, null, this)
         this.muteBtn = new MuteMechanism(game, gameGlobals, this)
         this.timer = new TimerMechanism(game, 15000,innerWidth/2, 0,  cs.title.default, null, this)
-        this.HealthBar = new HealthBarMechanism(game, "HP", innerWidth/2, innerHeight - 50, 'atlas','greenBarOutline', 'greenBarFill', "#F8E71C", 300, 150)
+        // this.HealthBar = new HealthBarMechanism(game, "HP", innerWidth/2, innerHeight - 50, 'atlas','greenBarOutline', 'greenBarFill', "#F8E71C", 300, 150)
     }
 
     update() {
@@ -244,7 +244,7 @@ class TimerMechanism {
 }
 
 
-class HealthBarMechanism {
+export class HealthBarMechanism {
 	outline: Phaser.Sprite
 	fill: Phaser.Sprite
 	text_description: Phaser.Text
@@ -324,6 +324,10 @@ class HealthBarMechanism {
 		}
 		this.updateText()
 
-	}
+    }
+    reset() {
+        this.incrementBy(this.maxValue)
+        this.updateValue(this.maxValue)
+    }
 
 }
