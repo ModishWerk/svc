@@ -1,7 +1,8 @@
 
 
 import {cs, fa_cs} from './ColorScheme'
-
+import { default as ds} from './dataStore'
+let dataStore = ds.storeInstance
 /**
  * UI
  */
@@ -12,10 +13,12 @@ export default class UI extends Phaser.Group {
     blurLayer: Phaser.TileSprite
     muteBtn: MuteMechanism
     timer: TimerMechanism
+    score: ScoreTracker
     // HealthBar: HealthBarMechanism
 
     constructor(game: Phaser.Game, gameGlobals) {
         super(game)
+        this.score = new ScoreTracker(game, dataStore)
         this.pause = new PauseMechanism(game, 250, this)
         this.savedText = new DynamicFeedBack(game, innerWidth/2, innerHeight/2, "Auto\nSaved..",1000, null, this)
         this.muteBtn = new MuteMechanism(game, gameGlobals, this)
@@ -210,6 +213,7 @@ export class MuteMechanism {
 class TimerMechanism {
     internalTimer: Phaser.Timer
     display: Phaser.Text
+    parent: any
 
     /* the timer mechanims receive an options specifying  */    
     constructor(game: Phaser.Game, delay: number, x: number, y: number, textStyle?: any,  type?: string, context?, grp?) {
@@ -230,19 +234,40 @@ class TimerMechanism {
         this.internalTimer = game.time.create(false);//new Phaser.Timer(game, false)
         this.internalTimer.add(delay, () => { console.log("DONE - TIMER")})
         // this.internalTimer.start()
-        this.display = createFontAwesomeBtn(game, x, y, this.internalTimer.duration, optionStyle, null, null, grp)
+        this.display = createFontAwesomeBtn(game, x, y, this.internalTimer.seconds, optionStyle, null, null, grp)
         // seconds -> counts up
         // duration -> counts down
-        console.log(textStyle)
+        // console.log(textStyle)
+        // this.internalTimer.ms
+        this.parent = context
     }
     update() {
-        this.display.setText(this.internalTimer.duration.toFixed(0))
+        this.display.setText(this.convertToLightYears(this.internalTimer.ms.toFixed(0)))
     }
     start() {
         this.internalTimer.start()
     }
+    convertToLightYears(timeInSeconds) {
+        // 1 sec = 1 month <=> 12sec = 1year
+        var years = Math.floor(timeInSeconds / 200)
+        this.parent.score.current_score = years
+        return `${years} ` + ( years > 1 ?  'yrs': 'yr')   
+        
+        
+    }
 }
 
+class ScoreTracker {
+    current_score: number = 0
+    highest_score: number = 0
+    last_score: number = 0
+    constructor(game: Phaser.Game, dataStore) {
+    
+    }
+    update() {
+        
+    }
+}
 
 export class HealthBarMechanism {
 	outline: Phaser.Sprite

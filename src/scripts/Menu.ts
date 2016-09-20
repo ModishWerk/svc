@@ -37,7 +37,7 @@ export default class Menu extends Phaser.State {
 
     }
     _setupMuteBtn() { 
-        this.muteBtn = new MuteMechanism(this.game, _gg, this.menuGrp, innerWidth, 0)
+        this.muteBtn = new MuteMechanism(this.game, _gg, undefined, innerWidth, 0)
     }
     _setupGameMenu() {
 

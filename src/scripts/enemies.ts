@@ -186,7 +186,7 @@ export default class EnemyWave extends Phaser.Group {
       this.add(new Enemy(game.game, x, y, 'enemyWalking_1', TargetPlayer), true);
     }
     this.nextEnemyAt = 0;
-    this.enemyDelay = 1500;
+    this.enemyDelay = 500;
 
 
     // this.callAll('animations.add', 'animations', 'run', Phaser.Animation.generateFrameNames('enemyWalking_', 1, 4, '.png'), 16, true);
@@ -229,7 +229,7 @@ EnemyWave.prototype.spawn = function () {
         var y = x[1];
         x = x[0];
         enemy.reset(x, y);
-        enemy.SPEED = 60 + this.game.rnd.integerInRange(0, 30) * 5;
+        enemy.SPEED = 200 + this.game.rnd.integerInRange(0, 30) * 5;
         
       }
     }

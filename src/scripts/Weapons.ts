@@ -3,7 +3,8 @@
  */
 export default class Weapons  {
 	_wp: Phaser.Weapon
-	owner:Phaser.Sprite
+	owner: Phaser.Sprite
+	item_name = "weapon"
     constructor(owner: Phaser.Sprite) {
 		this.owner = owner
         // super(game, game.plugins)

@@ -21,6 +21,12 @@ var collision = {
             stopGame(Hero._currentState)
 
         }
+    },
+    collisionHandlerBulletEnemy(bullet, enemy) {
+        console.log("BOOMM ENEMY DEAD !")
+        enemy.kill()
+        enemy.updateParentGroupOnKill()
+        bullet.kill()
     }
 }
 

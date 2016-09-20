@@ -33,3 +33,5 @@ use gulp serve:dist -> gulp serve is not updated for typescript yet
 
 
 http://soundbible.com/suggest.php?q=weapon&x=0&y=0
+
+cordova run ios --device

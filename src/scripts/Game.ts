@@ -1,7 +1,7 @@
 
 // imports here refers to the old JS files
 import { default as ds} from './dataStore'
-import levelManager  from './level'
+// import levelManager  from './level'
 import Player from './Player'
 import EnemyWave from "./enemies"
 
@@ -34,7 +34,9 @@ export default class Game extends Phaser.State {
     leftStick: any
     rightStick: any
     fireButton: any
-    levelManager: any
+    // levelManager: any
+    rightGhostStick:any
+    leftGhostStick:any
 
 
     init() {
@@ -56,7 +58,7 @@ export default class Game extends Phaser.State {
         this.lastSave = 0
         this.savedText = null;
 
-        this.levelManager = levelManager
+        // this.levelManager = levelManager
 
     }
     preload() {
@@ -78,9 +80,10 @@ export default class Game extends Phaser.State {
         this.pad = this.game.plugins.add(Phaser.VirtualJoystick)
         this.fireButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR)
         
-        this.leftStick = this._setupDirectionPad()
-        this.rightStick = this._setupOrientationPad()
-        // this._addSuperJoystick() 
+        // this.leftStick = this._setupDirectionPad()
+        // this.rightStick = this._setupOrientationPad()
+        this.rightGhostStick = this._addSuperJoystick() 
+        this.leftGhostStick = this._addSuperJoystick2() 
 
         this.player = new Player(this.game, innerWidth/2, innerHeight/2,4)
         this.Enemies = new EnemyWave(this.game, this ,100, this.player);
@@ -103,7 +106,7 @@ export default class Game extends Phaser.State {
         // this.game.debug.spriteInfo(this.player, 20, 32);
         this.game.debug.text("" + this.game.time.fps || '--', 32, 32, "#00ff00");
 
-        // this.game.debug.text("" + this.game.time.totalElapsedSeconds().toFixed(0) || '--', 32,232, "#00ff00");
+        this.game.debug.text("" + this.game.time.totalElapsedSeconds().toFixed(0) || '--', 32,232, "#00ff00");
         // this.game.debug.text("" + this.UI.timer.internalTimer.seconds.toFixed(0) || '--', 32,332, "#00ff00");
         
     }
@@ -143,10 +146,35 @@ export default class Game extends Phaser.State {
         	return true
         });
 
+        return joystick
+    }
+
+    _addSuperJoystick2() {
+        var joystick	= new VirtualJoystick({
+        	container	: document.getElementById('game'),
+        	strokeStyle	: "rgba(0,0,255,0.5)",
+        	limitStickTravel: true,
+            stickRadius: 120,
+            mouseSupport: false,
+            useCssTransform:false
+        });
+        joystick.addEventListener('touchStartValidation', function(event){
+        	var touch	= event.changedTouches[0];
+        	if( touch.pageX > window.innerWidth/2 )	return false;
+        	return true
+        });
+
+        return joystick
     }
     _checkAllCollision() {
         this.game.physics.arcade.collide(this.player, this.Enemies, collision.collisionHandlerHeroEnemy);
         this.game.physics.arcade.collide(this.Enemies, this.Enemies);
+        for (var item in this.player.inventory) {
+            if (this.player.inventory[item].item_name === "weapon") {
+                this.game.physics.arcade.collide(this.player.inventory[item]._wp.bullets, this.Enemies, collision.collisionHandlerBulletEnemy, null, this);
+                
+            }
+        }
         // this.game.physics.arcade.collide(this.player, this.powerUpGroup, this.player.pickUpHandler);
     }
 }
@@ -156,9 +184,15 @@ export default class Game extends Phaser.State {
 export function stopGame(gameState:Game) {
   console.log(" >>> stopGame <<<")
   console.log("Game Over")
+    gameState.Enemies.destroy()
 //   game.startButton.visible = true
 
-//   game.Hero.visible = false
+    gameState.player.visible = false
+    gameState.UI.timer.internalTimer.pause()
+    // gameState.UI.timer.internalTimer.stop()
+
+    gameState.leftStick? gameState.leftStick.visible = false: 0
+    gameState.rightStick? gameState.rightStick.visible = false: 0
 
 //   game.stick.visible = false
 //   game.FireStick.visible = false

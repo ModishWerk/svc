@@ -9,7 +9,7 @@ export default class Player extends Phaser.Sprite {
     maxVelocity: number
     _currentState: any//Phaser.State
     inventory
-    wp: Phaser.Weapon
+    // wp: Phaser.Weapon
     margin = 100
     body: Phaser.Physics.Arcade.Body
     hp: HealthBarMechanism
@@ -26,11 +26,11 @@ export default class Player extends Phaser.Sprite {
         this.scale.set(1.5)
         this.body.drag.x = 300 // decreasing speed
         this.body.drag.y = 300 // decreasing speed
-        this.lives = 3
+        this.lives = 1
         this.maxHealth = maxHealth || 20
         this.health = this.maxHealth
         this.hp = new HealthBarMechanism(game, "HP", innerWidth / 2, innerHeight - 50, 'atlas', 'greenBarOutline', 'greenBarFill', "#F8E71C", this.maxHealth, this.health)
-        this.wp = this.game.add.weapon(30, 'atlas', 'bullet')
+        // this.wp = this.game.add.weapon(30, 'atlas', 'bullet')
 
 
         // this.skinAnim = this.animations.add('royal_purple', [0, 1, 2, 3, 4, 5, 6, 7,6,5,4,3,2,1,0], 8, true, true);
@@ -47,6 +47,7 @@ export default class Player extends Phaser.Sprite {
     update() {
         this.updateMobileInputHandler()
         this.updateKeyboardInputHandler()
+        this.updateGhostJoystick()
     }
 
     updateKeyboardInputHandler() {
@@ -74,11 +75,12 @@ export default class Player extends Phaser.Sprite {
 
         if (this._currentState.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)) {
             //  this.action("fire");
+            this.inventory[0].fire()
         }
     }
 
     updateMobileInputHandler() {
-
+        if (!this._currentState['rightStick']) return 
         if (this._currentState['rightStick'].isDown) {
 
             this.inventory[0].fire()
@@ -107,6 +109,22 @@ export default class Player extends Phaser.Sprite {
             this.y = this.game.world.height - this.margin * 2
         } else if (this.y < this.margin) {
             this.y = this.margin
+        }
+    }
+
+    updateGhostJoystick() {
+        var vjr = this._currentState['rightGhostStick']            
+        var vjl = this._currentState['leftGhostStick']            
+        if (this._currentState['rightGhostStick']._pressed) {
+            this.inventory[0].fire()
+            vjr.rotation = Math.atan2(vjr.deltaY() , vjr.deltaX())
+            console.log(vjr.rotation * 180/Math.PI, vjr.deltaX(), vjr.deltaY())
+             this.rotation = (vjr.rotation)
+        }
+        if (vjl._pressed) {
+            vjl.rotation = Math.atan2(vjl.deltaY(), vjl.deltaX())
+            vjl.force = Math.min(1, (Math.sqrt(vjl.deltaX()**2 +  vjl.deltaY()**2) / vjl._stickRadius * 2)) 
+             this.game.physics.arcade.velocityFromRotation(vjl.rotation, this.maxVelocity * vjl.force, this.body.velocity);
         }
     }
 

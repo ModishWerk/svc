@@ -8,7 +8,8 @@ import Options from './Options'
 
 import _gg from './GameGlobals'
 
-
+import { default as ds} from './dataStore'
+let dataStore = ds.storeInstance
 
 
 export default class Splash extends Phaser.State {
@@ -120,10 +121,11 @@ export default class Splash extends Phaser.State {
 let loadFonts = (game: Splash) => {
     WebFont.load(<WebFont.Config>{
         custom: {
-            families: ['TheMinion', 'FontAwesome', 'sequence_brk'],
+            families: ['TheMinion', 'FontAwesome', 'sequence_brk', 'NextStop-doubledots', 'NextStop-blocky'],
             urls: [ 'assets/style/theminion.css',
                     'assets/style/font-awesome.min.css',
-                    'assets/style/sequence_brk.css'
+                    'assets/style/sequence_brk.css',
+                    'assets/style/nextStop.css'
             ]
         },
         // google: { families: ['Sniglet', 'Modak'] },
