@@ -210,7 +210,7 @@ EnemyWave.prototype.update = function () {
     } else {
       this.spawn()
     }
-    this.completed = this.remaining > 0 ? false : true;
+    // this.completed = this.remaining > 0 ? false : true;
     // enemy.rotation = this.game.math.degToRad(90) + this.game.physics.arcade.moveToObject(enemy, this.game.Hero, this.SPEED);
   }, this);
 };
@@ -222,7 +222,6 @@ EnemyWave.prototype.spawn = function () {
       var enemy = this.getFirstExists(false);
       if (enemy) {
         enemy.visible = true
-        console.log(this)
         enemy.resetStats(); // because we are reusing the object some of them might have no defense or no life left already
         // spawn at a random location top of the screen
         var x = getRandomPositionOutsideMargin(this.game, 50); // this is bad don't do it again

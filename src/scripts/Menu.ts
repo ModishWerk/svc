@@ -22,7 +22,7 @@ export default class Menu extends Phaser.State {
     }
     preload() { }
     create() {
-        console.log("GameMenu Create")
+        // console.log("GameMenu Create")
         this._setupGameMenu()
         this.fade = this.game.camera.flash(0xfffffff, 1000, true)
         this._playMusic()
@@ -32,8 +32,8 @@ export default class Menu extends Phaser.State {
     render() {
         // console.log("Render Splash")
         // this.game.debug.rectangle(this.logo.getLocalBounds(), 'blue', false);
-        this.game.debug.text("" + this.game.time.fps || '--', 32, 32, "#00ff00");
-        this.game.debug.soundInfo(_gg.Music, 20, 32);
+        // this.game.debug.text("" + this.game.time.fps || '--', 32, 32, "#00ff00");
+        // this.game.debug.soundInfo(_gg.Music, 20, 32);
 
     }
     _setupMuteBtn() { 

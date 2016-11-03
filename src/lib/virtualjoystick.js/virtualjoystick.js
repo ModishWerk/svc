@@ -23,7 +23,8 @@ var VirtualJoystick	= function(opts)
 	this._stickEl.style.display	= "none"
 
 	this._pressed	= false;
-	this._touchIdx	= null;
+	this._touchIdx = null;
+	console.log("TEST 1 PASSED")
 	
 	if(this._stationaryBase === true){
 		this._baseEl.style.display	= "";
@@ -32,7 +33,9 @@ var VirtualJoystick	= function(opts)
 	}
     
 	this._transform	= this._useCssTransform ? this._getTransformProperty() : false;
+	console.log("TEST 2 PASSED")
 	this._has3d	= this._check3D();
+	console.log("TEST 3 PASSED")
 	
 	var __bind	= function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 	this._$onTouchStart	= __bind(this._onTouchStart	, this);
@@ -49,6 +52,7 @@ var VirtualJoystick	= function(opts)
 		this._container.addEventListener( 'mouseup'	, this._$onMouseUp	, false );
 		this._container.addEventListener( 'mousemove'	, this._$onMouseMove	, false );
 	}
+	console.log("TEST 4 PASSED")
 }
 
 VirtualJoystick.prototype.destroy	= function()

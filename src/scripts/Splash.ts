@@ -62,7 +62,7 @@ export default class Splash extends Phaser.State {
     create() {
         this.game.scale.scaleMode = Phaser.ScaleManager.RESIZE;
         this.game.renderer.renderSession.roundPixels = true;
-        console.log("Splash ==> ", _gg.autoSave, _gg.Music)
+        // console.log("Splash ==> ", _gg.autoSave, _gg.Music)
 
 
         this._addGameState();

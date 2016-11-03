@@ -55,8 +55,8 @@ class PauseMechanism {
                 srokeThickness: 4
             },
             over: {
-                fontSize: '300px',
-                font: 'FontAwesome',
+                // fontSize: '300px',
+                font: '40px FontAwesome',
                 align: 'left',
                 fill: "#FEFFD5",
                 stroke: "rgba(200,200,200,0.5)"
@@ -77,7 +77,8 @@ class PauseMechanism {
     }
     _pauseHandler(game, btn) {
         var blurTwn = game.add.tween(this.blurLayer).to({ alpha: 1 }, this.animationDuration, Phaser.Easing.Cubic.In, true, 200);
-        var twn = game.add.tween(btn).to({ fontSize: "300px", x: window.screen.width/2, y: window.screen.height/2, backgroundColor: cs.color.accent_color }, this.animationDuration, Phaser.Easing.Cubic.In, true, 200);
+        var twn = game.add.tween(btn).to({ fontSize: "300px", x: innerWidth/2, y: innerHeight/2, backgroundColor: cs.color.accent_color }, this.animationDuration, Phaser.Easing.Cubic.In, true, 200);
+        console.log( innerWidth/2, innerHeight/2)
         twn.onComplete.add(() => { game.paused = true; }) // pause after tweening
 
     }

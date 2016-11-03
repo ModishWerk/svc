@@ -70,7 +70,7 @@ export default class Game extends Phaser.State {
         
         this.physics.startSystem(Phaser.Physics.ARCADE);
         this.game.stage.disableVisibilityChange = true;
-        this.world.setBounds(0, 0, 800, 800);
+        this.world.setBounds(0, 0, 2000, 2000);
         
         
         this.background = this.add.tileSprite(0, 0, window.innerWidth, window.innerHeight, 'atlas', 'bg1');
@@ -85,7 +85,7 @@ export default class Game extends Phaser.State {
         this.rightGhostStick = this._addSuperJoystick() 
         this.leftGhostStick = this._addSuperJoystick2() 
 
-        this.player = new Player(this.game, innerWidth/2, innerHeight/2,4)
+        this.player = new Player(this.game, innerWidth/2, innerHeight/2,20)
         this.Enemies = new EnemyWave(this.game, this ,100, this.player);
         
         this.UI = new UI(this.game, _gg)
@@ -193,7 +193,11 @@ export function stopGame(gameState:Game) {
 
     gameState.leftStick? gameState.leftStick.visible = false: 0
     gameState.rightStick? gameState.rightStick.visible = false: 0
-
+    setTimeout(() => {
+        console.log("GAME RESTARTING")
+        gameState.game.camera.fade(0x0000000, 1000, true)
+        gameState.game.state.start("Game");
+    }, 2000);
 //   game.stick.visible = false
 //   game.FireStick.visible = false
 //   game.nukeButton.visible = false

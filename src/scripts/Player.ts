@@ -127,7 +127,5 @@ export default class Player extends Phaser.Sprite {
              this.game.physics.arcade.velocityFromRotation(vjl.rotation, this.maxVelocity * vjl.force, this.body.velocity);
         }
     }
-
-
 }
 
