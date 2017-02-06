@@ -77,9 +77,13 @@ class PauseMechanism {
     }
     _pauseHandler(game, btn) {
         var blurTwn = game.add.tween(this.blurLayer).to({ alpha: 1 }, this.animationDuration, Phaser.Easing.Cubic.In, true, 200);
-        var twn = game.add.tween(btn).to({ fontSize: "300px", x: innerWidth/2, y: innerHeight/2, backgroundColor: cs.color.accent_color }, this.animationDuration, Phaser.Easing.Cubic.In, true, 200);
+        // var twn = game.add.tween(btn).to({ fontSize: "300px", x: innerWidth/2, y: innerHeight/2, backgroundColor: cs.color.accent_color }, this.animationDuration, Phaser.Easing.Cubic.In, true, 200);
+        var twn = game.add.tween(btn).to({backgroundColor: cs.color.accent_color }, this.animationDuration, Phaser.Easing.Cubic.In, true, 200);
         console.log( innerWidth/2, innerHeight/2)
-        twn.onComplete.add(() => { game.paused = true; }) // pause after tweening
+        twn.onComplete.add(() => {
+            game.paused = true;
+            btn.setText('\uf04b') //: btn.setText('\uf28c')
+        }) // pause after tweening
 
     }
     _unPauseHandler(event) {
@@ -92,8 +96,10 @@ class PauseMechanism {
             if (event.x > x1 && event.x < x2 && event.y > y1 && event.y < y2) {
 
                 event.game.paused = false;
+                this.pauseBtn.setText('\uf28c')
                 // I'm not sure why but a negative found size does reduce the pause button back
-                event.game.add.tween(this.pauseBtn).to({ fontSize: "-300px", x: this.pauseBtn["resetX"], y: this.pauseBtn["resetY"], backgroundColor: cs.color.accent_color }, this.animationDuration, Phaser.Easing.Cubic.In, true, 200);
+                event.game.add.tween(this.pauseBtn).to({ backgroundColor: cs.color.accent_color }, this.animationDuration, Phaser.Easing.Cubic.In, true, 200);
+                // event.game.add.tween(this.pauseBtn).to({ fontSize: "-300px", x: this.pauseBtn["resetX"], y: this.pauseBtn["resetY"], backgroundColor: cs.color.accent_color }, this.animationDuration, Phaser.Easing.Cubic.In, true, 200);
                 event.game.add.tween(this.blurLayer).to({ alpha: 0 }, 200, Phaser.Easing.Cubic.In, true, 200);
 
             }
@@ -138,7 +144,7 @@ export function createFontAwesomeBtn(game:Phaser.Game, x, y, text, optionStyle, 
  **********************************************************/
 
 /**
- * dynamic feedback create a quickly displayed text near the 
+ * dynamic feedback create a quickly displayed text near the target
  */
 class DynamicFeedBack {
     txt: Phaser.Text

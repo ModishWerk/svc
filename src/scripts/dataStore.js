@@ -48,3 +48,4 @@ var storeInstance = new DataStore(true);
 exports.default = { DataStore: DataStore, storeInstance: storeInstance };
 //# sourceMappingURL=dataStore.js.map
 //# sourceMappingURL=dataStore.js.map
+//# sourceMappingURL=dataStore.js.map

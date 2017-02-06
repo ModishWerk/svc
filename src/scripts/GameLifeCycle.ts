@@ -18,6 +18,8 @@ export let LifeCycle = {
         if (game.game.paused || game.isOver == true) {
             console.log(" >>> LifeCycle - gameStart <<<")
 
+            // game.camera.fade(0x000000, 200, false);
+
             game.levelConfig = game.levelManager.get(lvlID)
             game.game.state.start("Game");
 
@@ -39,9 +41,9 @@ export let LifeCycle = {
         game.leftStick? game.leftStick.visible = false: 0
         game.rightStick? game.rightStick.visible = false: 0
         game.isOver = true
+        game.game.camera.fade(0x0000000, 1000, true)
         setTimeout(() => {
             console.log("GAME RESTARTING")
-            game.game.camera.fade(0x0000000, 1000, true)
             LifeCycle.gameStart(game, 0)
         }, 2000);
 

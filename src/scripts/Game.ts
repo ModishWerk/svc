@@ -105,6 +105,7 @@ export default class Game extends Phaser.State {
         
         this.UI = new UI(this.game, _gg)
         this.UI.timer.start()
+        this.game.camera.flash(0x000000, 500, false);
 
 
         this.isOver = false
