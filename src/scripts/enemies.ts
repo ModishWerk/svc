@@ -210,7 +210,7 @@ EnemyWave.prototype.update = function () {
     } else {
       this.spawn()
     }
-    // this.completed = this.remaining > 0 ? false : true;
+    this.completed = this.remaining > 0 ? false : true;
     // enemy.rotation = this.game.math.degToRad(90) + this.game.physics.arcade.moveToObject(enemy, this.game.Hero, this.SPEED);
   }, this);
 };

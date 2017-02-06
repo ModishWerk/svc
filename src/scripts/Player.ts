@@ -14,6 +14,7 @@ export default class Player extends Phaser.Sprite {
     body: Phaser.Physics.Arcade.Body
     hp: HealthBarMechanism
     lives: number
+
     constructor(game: Phaser.Game, x: number, y: number, maxHealth?) {
         super(game, x, y, "atlas", "box_cyborg_skin")
         // this.loadTexture("atlas", "box_steel_skin")
@@ -42,6 +43,12 @@ export default class Player extends Phaser.Sprite {
         game.add.existing(this)
         this.inventory = []
         this.inventory.push(new Weapons(this))
+    }
+
+    reset_player() {
+         this.visible = true
+         this.x = this.game.width/2
+         this.y = this.game.height/2
     }
 
     update() {

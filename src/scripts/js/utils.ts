@@ -109,5 +109,3 @@ if (typeof Object.assign != 'function') {
 }
 
 export default utils
-//# sourceMappingURL=utils.js.map
-//# sourceMappingURL=utils.js.map

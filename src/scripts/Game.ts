@@ -1,14 +1,17 @@
 
 // imports here refers to the old JS files
 import { default as ds} from './dataStore'
-// import levelManager  from './level'
+import { LevelManager }  from './LevelManager'
 import Player from './Player'
 import EnemyWave from "./enemies"
 
 import UI from './UIComponent'
 import _gg from './GameGlobals'
+import { LifeCycle } from './GameLifeCycle'
 
 import collision from './Collisions'
+import PowerUpGroup from './RPowerUps'
+
 
 let dataStore = ds.storeInstance
 
@@ -21,12 +24,14 @@ export default class Game extends Phaser.State {
     background: Phaser.TileSprite
     player: Player
     Enemies: any
+    isOver:boolean
 
     score: number
+    levelConfig: any
     savingInterval
     lastSave
     savedText
-    UI:UI
+    UI: UI
 
 
     cursors: Phaser.CursorKeys
@@ -34,10 +39,11 @@ export default class Game extends Phaser.State {
     leftStick: any
     rightStick: any
     fireButton: any
-    // levelManager: any
+    levelManager: any
     rightGhostStick:any
     leftGhostStick:any
 
+    powerups:any    
 
     init() {
         this.scale.scaleMode = Phaser.ScaleManager.RESIZE;
@@ -58,7 +64,7 @@ export default class Game extends Phaser.State {
         this.lastSave = 0
         this.savedText = null;
 
-        // this.levelManager = levelManager
+        this.levelManager = LevelManager
 
     }
     preload() {
@@ -85,11 +91,23 @@ export default class Game extends Phaser.State {
         this.rightGhostStick = this._addSuperJoystick() 
         this.leftGhostStick = this._addSuperJoystick2() 
 
-        this.player = new Player(this.game, innerWidth/2, innerHeight/2,20)
-        this.Enemies = new EnemyWave(this.game, this ,100, this.player);
+        let currentLevel = +(dataStore.get("_currentLevel")||0)        
+        // this makes sure that on every game start we start at lvl 0 and go up from then.
+        if (LifeCycle.isFirstGame) {
+            currentLevel = 0
+        }        
+
+        this.levelConfig = this.levelManager.get(currentLevel)
+        
+        this.player = new Player(this.game, innerWidth/2, innerHeight/2, this.levelConfig.lives)
+        this.Enemies = new EnemyWave(this.game, this, this.levelConfig.enemies, this.player);
+        this.powerups = new PowerUpGroup(this.game);
         
         this.UI = new UI(this.game, _gg)
         this.UI.timer.start()
+
+
+        this.isOver = false
 
 
     }
@@ -169,47 +187,15 @@ export default class Game extends Phaser.State {
     _checkAllCollision() {
         this.game.physics.arcade.collide(this.player, this.Enemies, collision.collisionHandlerHeroEnemy);
         this.game.physics.arcade.collide(this.Enemies, this.Enemies);
+            this.game.physics.arcade.collide(this.player, this.powerups, collision.collisionHandlerHeroPowerUps);
         for (var item in this.player.inventory) {
             if (this.player.inventory[item].item_name === "weapon") {
                 this.game.physics.arcade.collide(this.player.inventory[item]._wp.bullets, this.Enemies, collision.collisionHandlerBulletEnemy, null, this);
                 
             }
         }
-        // this.game.physics.arcade.collide(this.player, this.powerUpGroup, this.player.pickUpHandler);
+        // this.game.physics.arcade.collide(this.player, this.PowerUpGroup, this.player.pickUpHandler);
     }
 }
 
-
-/* The current game state - not the Phaser game object*/
-export function stopGame(gameState:Game) {
-  console.log(" >>> stopGame <<<")
-  console.log("Game Over")
-    gameState.Enemies.destroy()
-//   game.startButton.visible = true
-
-    gameState.player.visible = false
-    gameState.UI.timer.internalTimer.pause()
-    // gameState.UI.timer.internalTimer.stop()
-
-    gameState.leftStick? gameState.leftStick.visible = false: 0
-    gameState.rightStick? gameState.rightStick.visible = false: 0
-    setTimeout(() => {
-        console.log("GAME RESTARTING")
-        gameState.game.camera.fade(0x0000000, 1000, true)
-        gameState.game.state.start("Game");
-    }, 2000);
-//   game.stick.visible = false
-//   game.FireStick.visible = false
-//   game.nukeButton.visible = false
-//   game.gameOver = true
-//   game.EnemyGroup.destroy()
-
-//   game.gameOverText.text = `GAME OVER\n\t\t\t  Score: ${game.Hero._score},  Health: ${game.Hero.health},  Lives: ${game.Hero.lives}`;
-//   game.gameOverText.visible = true
-//   game.Hero.health = game.Hero.MAX_HEALTH
-//   game.Hero.health = game.Hero.MAX_HEALTH
-//   game.Hero.lives = game._level.lives
-//   game.timer.stop();
-//   game.storeInstance.save("_currentLevel", game._level.id)
-
-}
+  

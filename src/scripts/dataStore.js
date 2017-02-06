@@ -18,6 +18,10 @@ DataStore.prototype.getItem = function (name) {
     }
 };
 
+DataStore.prototype.get = function (name) {
+    return this._store.getItem(name);
+};
+
 DataStore.prototype.save = function (name, value) {
     if (this._store) {
         return this._store.setItem(name, value);
@@ -42,15 +46,5 @@ DataStore.prototype.setupDefaultGameItems = function () {
 var storeInstance = new DataStore(true);
 
 exports.default = { DataStore: DataStore, storeInstance: storeInstance };
-//# sourceMappingURL=dataStore.js.map
-//# sourceMappingURL=dataStore.js.map
-//# sourceMappingURL=dataStore.js.map
-//# sourceMappingURL=dataStore.js.map
-//# sourceMappingURL=dataStore.js.map
-//# sourceMappingURL=dataStore.js.map
-//# sourceMappingURL=dataStore.js.map
-//# sourceMappingURL=dataStore.js.map
-//# sourceMappingURL=dataStore.js.map
-//# sourceMappingURL=dataStore.js.map
 //# sourceMappingURL=dataStore.js.map
 //# sourceMappingURL=dataStore.js.map
