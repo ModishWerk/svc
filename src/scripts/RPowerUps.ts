@@ -4,8 +4,9 @@
 
 // import { ASSET_POWER_UPS_LIFE, ASSET_POWER_UPS_NUKE } from '../states/playingState.js'
 
-var ASSET_POWER_UPS_NUKE = 'pickupShield',
-    ASSET_POWER_UPS_LIFE = 'pickupSpeed';
+let ASSET_POWER_UPS_NUKE = 'pickupSpeed',
+    ASSET_POWER_UPS_LIFE = 'pickupLife',
+    ASSET_POWER_UPS_SPEED = 'pickupSpeed';
 
 
 /**
@@ -25,7 +26,8 @@ export class PowerUp_Life extends Phaser.Sprite {
 
   
   constructor(game, x, y) {
-    super(game, x, y);
+    super(game, x, y, ASSET_POWER_UPS_LIFE);
+    // super(game, x, y, "atlas", ASSET_POWER_UPS_LIFE);
     this.name = "life";
     this.capacity = 1;
     this.used = false;

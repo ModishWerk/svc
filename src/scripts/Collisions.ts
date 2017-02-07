@@ -42,16 +42,16 @@ var collision = {
     collisionHandlerBulletEnemy(bullet, enemy) {
 
         // if (enemy.health <= 0) {
+        var _currentState:any = enemy.game.state.getCurrentState()
             if (Math.random() < powerUps.probs) {
                 var name = choose(Object.keys(powerUps.registered))
                 var pw = new powerUps.registered[name](enemy.game, enemy.x, enemy.y)
-                var _currentState:any = enemy.game.state.getCurrentState()
                 _currentState.powerups.add(pw)
                 
                 console.log("a" + name + " as appeared", pw)
             }
         // }    
-
+        _currentState._particleBurst(enemy.body.position.x + (enemy.body.width / 2), enemy.body.position.y + (enemy.body.height / 2), _currentState.emitter);
         enemy.kill()
         enemy.updateParentGroupOnKill()
         bullet.kill()

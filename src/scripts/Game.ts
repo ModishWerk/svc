@@ -11,6 +11,7 @@ import { LifeCycle } from './GameLifeCycle'
 
 import collision from './Collisions'
 import PowerUpGroup from './RPowerUps'
+import InfiniteBg from './InfiniteBg'
 
 
 let dataStore = ds.storeInstance
@@ -22,6 +23,7 @@ let dataStore = ds.storeInstance
 export default class Game extends Phaser.State {
     timer: Phaser.Timer
     background: Phaser.TileSprite
+    bg: InfiniteBg
     player: Player
     Enemies: any
     isOver:boolean
@@ -44,6 +46,7 @@ export default class Game extends Phaser.State {
     leftGhostStick:any
 
     powerups:any    
+    emitter:Phaser.Particles.Arcade.Emitter
 
     init() {
         this.scale.scaleMode = Phaser.ScaleManager.RESIZE;
@@ -77,11 +80,13 @@ export default class Game extends Phaser.State {
         this.physics.startSystem(Phaser.Physics.ARCADE);
         this.game.stage.disableVisibilityChange = true;
         this.world.setBounds(0, 0, 2000, 2000);
+        // this.camera.bounds = null
         
-        
-        this.background = this.add.tileSprite(0, 0, window.innerWidth, window.innerHeight, 'atlas', 'bg1');
-        this.background.fixedToCamera = true
-        
+        // this.background = this.add.tileSprite(0, 0, window.innerWidth, window.innerHeight, 'atlas', 'bg1');
+        // this.background.fixedToCamera = true
+        this.bg = new InfiniteBg(this.game, 1, 'bg4', 'bg7')
+
+
         this.cursors = this.input.keyboard.createCursorKeys()
         this.pad = this.game.plugins.add(Phaser.VirtualJoystick)
         this.fireButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR)
@@ -107,6 +112,10 @@ export default class Game extends Phaser.State {
         this.UI.timer.start()
         this.game.camera.flash(0x000000, 500, false);
 
+        this.emitter = this.game.add.emitter(0, 0, 500);
+        this.emitter.makeParticles('4x4');
+        this.emitter.gravity = 2;
+
 
         this.isOver = false
 
@@ -114,10 +123,12 @@ export default class Game extends Phaser.State {
     }
 
     update() { 
-		this.background.tilePosition.set(-this.game.camera.x * 0.95, -this.game.camera.y * 0.95)
+        // this.background.tilePosition.set(-this.game.camera.x * 0.95, -this.game.camera.y * 0.95)
+        this.bg.updateTile()
         this.player.update()
         this.UI.timer.update()
         this._checkAllCollision()
+        this.emitter.forEachAlive(function(particle){ particle.alpha = particle.lifespan / 1000;}, this);
     }
 
     render() {
@@ -196,6 +207,12 @@ export default class Game extends Phaser.State {
             }
         }
         // this.game.physics.arcade.collide(this.player, this.PowerUpGroup, this.player.pickUpHandler);
+    }
+    _particleBurst(x, y, emitter?:Phaser.Particles.Arcade.Emitter) {
+        emitter = emitter || this.emitter
+        emitter.x = x;
+        emitter.y = y;
+        emitter.start(true, 500, 15, 20, true);
     }
 }
 

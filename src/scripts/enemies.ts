@@ -50,7 +50,8 @@ class Enemy extends Phaser.Sprite {
 
 
   constructor(game: Phaser.Game, x: number, y: number, asset_name, TargetPlayer) {
-    super(game, x, y, "enemy", asset_name)
+    // super(game, x, y, "enemy", asset_name)
+    super(game, x, y, asset_name)
     this.health = 2;
     this.attack = 1;
     this.defense = 1;
@@ -64,7 +65,7 @@ class Enemy extends Phaser.Sprite {
     this.body.bounce.x = 30;
     this.body.bounce.y = 30;
     // Define constants that affect motion
-    this.SPEED = 600 + game.rnd.integerInRange(0, 10) * 5; // Enemy speed pixels/second
+    this.SPEED = 700 + game.rnd.integerInRange(0, 10) * 25; // Enemy speed pixels/second
     this.TURN_RATE = 5; // turn rate in degrees/frame
 
 
@@ -78,8 +79,10 @@ class Enemy extends Phaser.Sprite {
     this.target = TargetPlayer
     
     // this.Anim = this.animations.add('run');
-    this.Anim = this.animations.add('run', Phaser.Animation.generateFrameNames('enemyWalking_', 1, 4), 3 , true, false);
-    this.Anim.play('run', 3, true);
+    if (asset_name == "enemy") {
+      this.Anim = this.animations.add('run', Phaser.Animation.generateFrameNames('enemyWalking_', 1, 4), 3 , true, false);
+      this.Anim.play('run', 3, true);
+    }
   }
 };
 
@@ -132,6 +135,7 @@ Enemy.prototype.update = function () {
     }
   }
 
+  this.SPEED += this.game.rnd.integerInRange(0, 10) * 0.5;
   // Calculate velocity vector based on this.rotation and this.SPEED
   this.body.velocity.x = Math.cos(this.rotation) * this.SPEED;
   this.body.velocity.y = Math.sin(this.rotation) * this.SPEED;
@@ -183,7 +187,8 @@ export default class EnemyWave extends Phaser.Group {
       x = getRandomPositionOutsideMargin(game, 50); // this is bad don't do it again
       y = x[1];
       x = x[0];
-      this.add(new Enemy(game.game, x, y, 'enemyWalking_1', TargetPlayer), true);
+      // this.add(new Enemy(game.game, x, y, 'enemyWalking_1', TargetPlayer), true);
+      this.add(new Enemy(game.game, x, y, 'commet', TargetPlayer), true);
     }
     this.nextEnemyAt = 0;
     this.enemyDelay = 500;

@@ -73,9 +73,9 @@ export default class Player extends Phaser.Sprite {
 
         if (this._currentState.cursors.up.isDown) {
 
-            this._currentState.physics.arcade.velocityFromRotation(this.rotation, 350, this.body.velocity);
+            this._currentState.physics.arcade.velocityFromRotation(this.rotation, this.maxVelocity, this.body.velocity);
         } else if (this._currentState.cursors.down.isDown) {
-            this._currentState.physics.arcade.velocityFromRotation(this.rotation - Math.PI, 350, this.body.velocity);
+            this._currentState.physics.arcade.velocityFromRotation(this.rotation - Math.PI, this.maxVelocity, this.body.velocity);
         }
         else {
         }

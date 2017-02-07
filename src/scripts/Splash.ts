@@ -55,7 +55,11 @@ export default class Splash extends Phaser.State {
         this.game.load.audio('fx_player', ['assets/sounds/player_snd_fx.ogg'])
         this.game.load.audio('fx_bullet', ['assets/sounds/norm_gun_snd_fx.ogg'])
 
-        // this.game.load.image("testImg", "http://placekitten.com/2000/3000")
+        this.game.load.image("pickupLife", "assets/images/powerup_shield.png")
+        this.game.load.image("bg4", "assets/images/bg4.png")
+        this.game.load.image("bg7", "assets/images/bg7.png")
+        this.game.load.image("commet", "assets/images/commet.png")
+        this.game.load.image("4x4", "assets/images/4x4.png")
         // this.game.load.image("testImg2", "http://placekitten.com/2000/3000")
         // this.game.load.image("testImg3", "http://placekitten.com/2000/3000")
     }
