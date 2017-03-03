@@ -84,7 +84,7 @@ export default class Game extends Phaser.State {
         
         // this.background = this.add.tileSprite(0, 0, window.innerWidth, window.innerHeight, 'atlas', 'bg1');
         // this.background.fixedToCamera = true
-        this.bg = new InfiniteBg(this.game, 1, 'bg4', 'bg7')
+        this.bg = new InfiniteBg(this.game, 1, 'bg7', 'bg4')
 
 
         this.cursors = this.input.keyboard.createCursorKeys()

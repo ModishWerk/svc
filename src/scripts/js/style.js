@@ -14,15 +14,17 @@ var cs = {}; // for color scheme - humm could also good with css... but oh well
 
 
   var defaultColor = "white",
-      highlightColor = "#FEFFD5";
+      highlightColor = "white";
   /* Color Scheme*/
-  cs.heading_color = "#E6E2AF";
+  cs.heading_color = "white";
+  // cs.heading_color = "#E6E2AF";
   cs.base_color = "#FFB03B";
   cs.background_color = "#31152B";
 
-  cs.text_color = "#F9E4AD";
+  // cs.text_color = "#F9E4AD";
+  cs.text_color = "white";
   cs.accent_color = "#CC4452";
-  cs.accent_hover_color = "#F9E4AD";
+  cs.accent_hover_color = "white";
 
   cs.fa_text_color = cs.accent_color;
 
@@ -130,6 +132,10 @@ var cs = {}; // for color scheme - humm could also good with css... but oh well
 })();
 
 exports.default = { cs: cs, strict: strict, fa_style: fa_style };
+//# sourceMappingURL=style.js.map
+//# sourceMappingURL=style.js.map
+//# sourceMappingURL=style.js.map
+//# sourceMappingURL=style.js.map
 //# sourceMappingURL=style.js.map
 //# sourceMappingURL=style.js.map
 //# sourceMappingURL=style.js.map

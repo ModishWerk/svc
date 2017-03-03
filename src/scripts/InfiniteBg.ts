@@ -13,7 +13,7 @@ export default class InfiniteBg extends Phaser.Group {
         
 		this.bg1.fixedToCamera = true
 		this.bg2.fixedToCamera = true
-		this.bg2.alpha = 0.3
+		this.bg2.alpha = 0.7
 	}
     
 	updateTile() {

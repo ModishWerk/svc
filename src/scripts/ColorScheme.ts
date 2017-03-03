@@ -7,12 +7,15 @@ var _cs = {
     highlightColor: "#FEFFD5",
 
     /* Color Scheme*/
-    heading_color: "#E6E2AF",
+    heading_color: "white",
+    // heading_color: "#E6E2AF",
+    // base_color: "#FFB03B",
     base_color: "#FFB03B",
-    background_color: "#31152B",
+    background_color: "#021227",
 
-    text_color: "#F9E4AD",
-    accent_color: "#CC4452",
+    text_color: "white",
+    // text_color: "#F9E4AD",
+    accent_color: "turquoise",
     accent_hover_color: "#F9E4AD",
     heading_fontFamily: "NextStop-blocky",
     body_fontFamily: "NextStop-blocky",
@@ -59,7 +62,7 @@ var _fa_cs = {
 
     /* Color Scheme*/
     heading_color: "#E6E2AF",
-    base_color: "#FFB03B",
+    base_color: "turquoise",
     background_color: "#31152B",
 
     text_color: "#F9E4AD",

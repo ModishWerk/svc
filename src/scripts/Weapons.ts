@@ -15,10 +15,10 @@ export default class Weapons  {
 		// this._wp.bulletAngleOffset = 90;
 
 		//  The speed at which the bullet is fired
-		this._wp.bulletSpeed = 800;
+		this._wp.bulletSpeed = 1200;
 
 		//  Speed-up the rate of fire, allowing them to shoot 1 bullet every 60ms
-		this._wp.fireRate = 50;
+		this._wp.fireRate = 100;
 
 		//  Add a variance to the bullet angle by +- this._wp value
 		// this._wp.bulletAngleVariance = 10;

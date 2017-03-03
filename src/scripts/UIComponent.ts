@@ -258,7 +258,7 @@ class TimerMechanism {
         // 1 sec = 1 month <=> 12sec = 1year
         var years = Math.floor(timeInSeconds / 200)
         this.parent.score.current_score = years
-        return `${years} ` + ( years > 1 ?  'yrs': 'yr')   
+        return `${years} ` + ( years > 1 ?  'years': 'year')   
         
         
     }
